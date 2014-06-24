@@ -124,42 +124,17 @@ class GameLogic {
     }
     
     func pickSuggestedTile() {
-        var visibleTileIndexArray:Int[] = [];
-        var suggestedTileCount = 0;
+        var randomRowIndex = Int(arc4random_uniform(UInt32(visibleRows.count)));
+        var randomVisibleRow:Int = visibleRows[randomRowIndex];
         
-        // TODO ?
-        // possibly change the way that the app handles keeping track of visible tiles?
-        // this works but it's a bit obtuse
-        switch visibleTileCount {
-        case 4:
-            visibleTileIndexArray = [15,16,21,22];
-            suggestedTileCount = 1;
-        case 16:
-            visibleTileIndexArray = [8,9,10,11,14,15,16,17,20,21,22,23,26,27,28,29];
-            suggestedTileCount = 2;
-        case 36:
-            visibleTileIndexArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]
-            suggestedTileCount = 3;
-        default:
-            println("could not pick a suggested tile");
-        }
+        var randomColIndex = Int(arc4random_uniform(UInt32(visibleRows.count)));
+        var randomVisibleCol:Int = visibleRows[randomRowIndex];
         
-        var randomNum = Int(arc4random_uniform(UInt32(visibleTileIndexArray.count)));
-        var newTileIndex = visibleTileIndexArray[randomNum] - 1;
-        
-        while(!suggestedTile && filledTileCount != 36) {
-            let possibleSuggestedTile = game.tileMatrix.grid[newTileIndex];
+        let possibleSuggestedTile = game.tileMatrix[randomVisibleRow, randomVisibleCol];
 
-            if (possibleSuggestedTile.beenTapped == false) {
-                suggestedTile = possibleSuggestedTile;
-                suggestedTile!.informSuggestedTile();
-            }
-            else {
-                // this tile's already been tapped, remove it from our possible list and try again
-                visibleTileIndexArray.removeAtIndex(randomNum);
-                randomNum = Int(arc4random_uniform(UInt32(visibleTileIndexArray.count)));
-                newTileIndex = visibleTileIndexArray[randomNum] - 1;
-            }
+        if (possibleSuggestedTile.beenTapped == false) {
+            suggestedTile = possibleSuggestedTile;
+            suggestedTile!.informSuggestedTile();
         }
     }
 }

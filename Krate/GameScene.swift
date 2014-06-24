@@ -18,16 +18,16 @@ class GameScene: SKScene {
         let screenWidth = Int(UIScreen.mainScreen().bounds.width);
         let screenHeight = Int(UIScreen.mainScreen().bounds.height);
         
-        game.tileWidth = screenWidth / 3;
+        game.tileWidth = screenWidth / 2;
         game.tileHeight = game.tileWidth;
         
         let worldWidth = game.tileWidth * tileRowCount;
         let worldHeight = game.tileHeight * tileColCount;
-        let hudHeight = screenHeight - (game.tileHeight * 3);
+        let hudHeight = screenHeight - (game.tileHeight * 2);
         
         /* place and size our world */
         let worldSize = CGSize(width: worldWidth, height: worldHeight);
-        let worldPosition = CGPoint(x: screenWidth / 2, y: game.tileHeight * 3);
+        let worldPosition = CGPoint(x: screenWidth / 2, y: game.tileHeight * 2);
 
         game.world.canvas.size = worldSize;
         game.world.canvas.position = worldPosition;
