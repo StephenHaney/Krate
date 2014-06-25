@@ -30,6 +30,9 @@ class GameLogic {
     var filledTileCount = 0;
     var suggestedTile:Tile?;
     
+    // keeps track of succesful color matched tiles as the player tries to clear a group
+    var colorMatchedTiles:Tile[] = [];
+    
     init() {
         tileMatrix = TileMatrix(rows: tileRowCount, columns: tileColCount);
         
@@ -55,8 +58,9 @@ class GameLogic {
             let positionY = (tileWidth * rowPlacement) + (tileWidth * rowCounter);
             let position = CGPoint(x: positionX, y: positionY);
 
-            let tile = Tile(tileWidth: tileWidth, tileHeight: tileHeight, position: position);
-
+            let tile = Tile(tileWidth: tileWidth, tileHeight: tileHeight, position: position, row: rowCounter, column: colCounter);
+            
+            
             tileMatrix.grid.append(tile);
             world.canvas.addChild(tile.sprite);
 
@@ -64,6 +68,56 @@ class GameLogic {
             
             if index % tileColCount == 0 {
                 rowCounter++;
+            }
+        }
+    }
+    
+    // the player is attempting to clear out some tiles
+    func attemptTileClear(startingTile:Tile) {
+        // start building our color matched tile array - starting with the initial tile
+        self.colorMatchedTiles.append(startingTile);
+        
+        // start the recursive hunt for matching tiles
+        checkAdjacentTiles(startingTile);
+        
+        // TODO: Do something with results!
+        
+        // reset our matched list
+        self.colorMatchedTiles = [];
+    }
+    
+    func checkAdjacentTiles(startingTile:Tile) {
+        var adjacentTiles:Tile[] = [];
+        let belowRow = startingTile.row - 1;
+        let aboveRow = startingTile.row + 1;
+        let leftCol = startingTile.column - 1;
+        let rightCol = startingTile.column + 1;
+        
+        if belowRow >= 0 {
+            adjacentTiles.append(game.tileMatrix[belowRow, startingTile.column]);
+        }
+        
+        if aboveRow < tileColCount {
+            adjacentTiles.append(game.tileMatrix[aboveRow, startingTile.column]);
+        }
+        
+        if leftCol >= 0 {
+            adjacentTiles.append(game.tileMatrix[startingTile.row, leftCol]);
+        }
+        
+        if rightCol < tileRowCount {
+            adjacentTiles.append(game.tileMatrix[startingTile.row, rightCol]);
+        }
+        
+        for tile in adjacentTiles {
+            if (tile.sprite.color == startingTile.sprite.color) {
+                // they're the same color!  Make sure we haven't already matched this new tile:
+                var tileIsAlreadyMatched = self.colorMatchedTiles.filter { $0 === tile }.count;
+                // if it's not already in the collection, add it!
+                if tileIsAlreadyMatched == 0 {
+                    self.colorMatchedTiles.append(tile);
+                    checkAdjacentTiles(tile); // recursively check this tile's adjacent tiles
+                }
             }
         }
     }

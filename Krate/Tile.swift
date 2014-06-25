@@ -13,20 +13,29 @@ class Tile {
     let sprite = SKSpriteNode();
     var color:UIColor?;
     var beenTapped = false;
+    let row:Int;
+    let column:Int;
     
-    init(tileWidth:Int, tileHeight:Int, position:CGPoint) {
+    init(tileWidth:Int, tileHeight:Int, position:CGPoint, row:Int, column:Int) {
         sprite.anchorPoint = CGPoint(x: 0, y: 0);
         sprite.size = CGSize(width: tileWidth, height: tileHeight);
         sprite.position = position;
         sprite.color = UIColor.grayColor();
+        self.row = row;
+        self.column = column;
     }
     
     func onTap() {
         if (beenTapped === false) {
+            // this tile is empty - give it the current game color
             sprite.color = game.currentColor;
             game.pickColor();
             beenTapped = true;
             game.informTileFilled(self);
+        }
+        else {
+            // this tile is filled, check to see if we can clear it
+            game.attemptTileClear(self);
         }
     }
     

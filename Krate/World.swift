@@ -17,9 +17,11 @@ class World {
 
     func zoomOut(scale:Float) {
         let scaleAction = SKAction.scaleTo(scale, duration: 0.5);
-        let rotateAction = SKAction.rotateToAngle(1.57079633, duration: 0.5);
-        let actionGroup = SKAction.group([scaleAction, rotateAction]);
+        //let rotateAction = SKAction.rotateToAngle(1.57079633, duration: 0.5);
+        //let actionGroup = SKAction.group([scaleAction, rotateAction]);
         
-        canvas.runAction(actionGroup);
+        //canvas.runAction(actionGroup);
+        
+        canvas.runAction(scaleAction);
     }
 }
