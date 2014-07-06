@@ -10,6 +10,7 @@ import SpriteKit
 import Darwin
 
 class GameLogic {
+    var gameScene:GameScene?;
     let hud = Hud();
     let world = World();
     let tileRowCount = 6;
@@ -18,16 +19,18 @@ class GameLogic {
     var tileWidth:Int = 0;
     var tileHeight:Int = 0;
     
+    var performingIntro = true;
     var score = 0;
     
-    var possibleColors:UIColor[];
-    var currentColor = UIColor.blueColor();
+    var possibleColors:SKTexture[];
+    var currentColor = SKTexture(imageNamed: "CubeBlue");
     
     var tileMatrix:TileMatrix;
     
     var visibleRows:Int[];
     var visibleCols:Int[];
     var filledTileCount = 0;
+    var turnCount = 0;
     var suggestedTile:Tile?;
     
     // keeps track of succesful color matched tiles as the player tries to clear a group
@@ -39,8 +42,22 @@ class GameLogic {
         visibleRows = [2,3];
         visibleCols = [2,3];
         
-        possibleColors = [UIColor.blueColor(), UIColor.brownColor(), UIColor.greenColor(), UIColor.magentaColor(), UIColor.purpleColor()];
+        possibleColors = [
+            SKTexture(imageNamed: "CubeBlue"),
+            SKTexture(imageNamed: "CubePurple"),
+            SKTexture(imageNamed: "CubeGreen"),
+            SKTexture(imageNamed: "CubeRed"),
+            SKTexture(imageNamed: "CubeYellow")
+        ];
         pickColor();
+        
+        // every X seconds we want to black out another tile
+        let blackoutSequence = SKAction.sequence([SKAction.waitForDuration(7), SKAction.runBlock({ self.pickDisabledTile(); })]);
+        let blackoutTimer = SKAction.repeatActionForever(blackoutSequence);
+        world.canvas.runAction(blackoutTimer);
+        
+        // perform the pre-game zoom in to the board
+        world.pregameZoom();
     }
     
     func buildTiles() {
@@ -59,7 +76,6 @@ class GameLogic {
             let position = CGPoint(x: positionX, y: positionY);
 
             let tile = Tile(tileWidth: tileWidth, tileHeight: tileHeight, position: position, row: rowCounter, column: colCounter);
-            
             
             tileMatrix.grid.append(tile);
             world.canvas.addChild(tile.sprite);
@@ -80,7 +96,15 @@ class GameLogic {
         // start the recursive hunt for matching tiles
         checkAdjacentTiles(startingTile);
         
-        // TODO: Do something with results!
+        if (self.colorMatchedTiles.count > 2) {
+            for tile in self.colorMatchedTiles {
+                tile.beenTapped = false;
+                tile.sprite.texture = SKTexture(imageNamed: "CubeWhite");
+                filledTileCount--;
+            }
+            
+            world.shakeCamera(0.1);
+        }
         
         // reset our matched list
         self.colorMatchedTiles = [];
@@ -110,7 +134,7 @@ class GameLogic {
         }
         
         for tile in adjacentTiles {
-            if (tile.sprite.color == startingTile.sprite.color) {
+            if (tile.blackedOut == false && tile.sprite.texture.isEqual(startingTile.sprite.texture)) {
                 // they're the same color!  Make sure we haven't already matched this new tile:
                 var tileIsAlreadyMatched = self.colorMatchedTiles.filter { $0 === tile }.count;
                 // if it's not already in the collection, add it!
@@ -128,22 +152,35 @@ class GameLogic {
         hud.informOfNewColor(currentColor);
     }
     
+    func informGameOver() {
+        let transition = SKTransition.doorwayWithDuration(2.5);
+        
+        let gameOverScene = GameOverScene(size: CGSize(width: 320, height: 320));
+        gameOverScene.scaleMode = SKSceneScaleMode.AspectFit;
+        game.gameScene!.view.presentScene(gameOverScene, transition: transition);
+    }
+    
     func informTileFilled(tile:Tile) {
         filledTileCount++;
-        
-        if (filledTileCount == 4) {
-            world.zoomOut(0.5);
-            visibleRows = [1,2,3,4];
-            visibleCols = [1,2,3,4];
+        turnCount++;
+
+        println(filledTileCount);
+        if (filledTileCount == 36) {
+            // game over!
+            self.informGameOver();
         }
-        else if (filledTileCount == 16) {
-            world.zoomOut(0.3333333334);
-            visibleRows = [0,1,2,3,4,5];
-            visibleCols = [0,1,2,3,4,5];
-        }
+        else
+        {
+            // shake the camera
+            world.shakeCamera(0.03);
         
+            self.checkForZoomChange();
+        }
+    }
+    
+    func informTurnPerformed(tile:Tile) {
         // starting with the second turn, every third turn we want to assign a 'suggested' spot
-        if ((filledTileCount + 2) % 3 == 0) {
+        if ((turnCount + 2) % 3 == 0) {
             pickSuggestedTile();
         }
         else {
@@ -155,7 +192,7 @@ class GameLogic {
                 else {
                     failedSuggestedTile();
                 }
-            
+                
                 self.suggestedTile!.sprite.xScale = 1;
                 self.suggestedTile!.sprite.yScale = 1;
                 self.suggestedTile = nil;
@@ -163,12 +200,25 @@ class GameLogic {
         }
     }
     
+    func checkForZoomChange() {
+        if (filledTileCount == 4 && world.zoomedOut == 0) {
+            world.zoomOut(0.5);
+            visibleRows = [1,2,3,4];
+            visibleCols = [1,2,3,4];
+        }
+        else if (filledTileCount == 16 && world.zoomedOut == 1) {
+            world.zoomOut(0.3333333334);
+            visibleRows = [0,1,2,3,4,5];
+            visibleCols = [0,1,2,3,4,5];
+        }
+    }
+    
     func failedSuggestedTile() {
         // TODO: write penalty for missing a suggested tile
-        self.suggestedTile!.sprite.alpha = 0;
-        self.suggestedTile!.beenTapped = true;
+        self.suggestedTile!.disable();
         
         filledTileCount++;
+        self.checkForZoomChange();
     }
     
     func succesfulSuggestedTile() {
@@ -178,17 +228,63 @@ class GameLogic {
     }
     
     func pickSuggestedTile() {
-        var randomRowIndex = Int(arc4random_uniform(UInt32(visibleRows.count)));
-        var randomVisibleRow:Int = visibleRows[randomRowIndex];
-        
-        var randomColIndex = Int(arc4random_uniform(UInt32(visibleRows.count)));
-        var randomVisibleCol:Int = visibleRows[randomRowIndex];
-        
-        let possibleSuggestedTile = game.tileMatrix[randomVisibleRow, randomVisibleCol];
+        let possibleSuggestedTile = randomVisibleBlankTile();
 
         if (possibleSuggestedTile.beenTapped == false) {
             suggestedTile = possibleSuggestedTile;
             suggestedTile!.informSuggestedTile();
         }
+    }
+    
+    func pickDisabledTile() {
+        let newDisabledTile = randomVisibleEnabledTile();
+        
+        if (newDisabledTile.beenTapped == false) {
+            self.informTileFilled(newDisabledTile);
+        }
+        
+        newDisabledTile.disable();
+    }
+    
+    // returns a visible tile that is gray
+    func randomVisibleBlankTile() -> Tile {
+        var randomRowIndex = game.randomNum(visibleRows.count);
+        var randomVisibleRow:Int = visibleRows[randomRowIndex];
+        
+        var randomColIndex = game.randomNum(visibleCols.count);
+        var randomVisibleCol:Int = visibleCols[randomColIndex];
+        
+        let randomVisibleTile = game.tileMatrix[randomVisibleRow, randomVisibleCol];
+        
+        // keep trying until we get a blank tile recursively
+        if (randomVisibleTile.beenTapped == true) {
+            return randomVisibleBlankTile();
+        }
+        else {
+            return randomVisibleTile;
+        }
+    }
+    
+    // returns a visible tile that hasn't been blacked out (but includes user colored tiles)
+    func randomVisibleEnabledTile() -> Tile {
+        var randomRowIndex = game.randomNum(visibleRows.count);
+        var randomVisibleRow:Int = visibleRows[randomRowIndex];
+        
+        var randomColIndex = game.randomNum(visibleCols.count);
+        var randomVisibleCol:Int = visibleCols[randomColIndex];
+        
+        let randomVisibleTile = game.tileMatrix[randomVisibleRow, randomVisibleCol];
+        
+        // keep trying until we get a blank tile recursively
+        if (randomVisibleTile.blackedOut == true) {
+            return randomVisibleEnabledTile();
+        }
+        else {
+            return randomVisibleTile;
+        }
+    }
+    
+    func randomNum(maxValue:Int) -> Int {
+        return Int(arc4random_uniform(UInt32(maxValue)));
     }
 }

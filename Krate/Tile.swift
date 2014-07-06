@@ -10,11 +10,11 @@ import SpriteKit
 
 /* Tile class */
 class Tile {
-    let sprite = SKSpriteNode();
-    var color:UIColor?;
+    let sprite = SKSpriteNode(imageNamed: "CubeWhite");
     var beenTapped = false;
     let row:Int;
     let column:Int;
+    var blackedOut = false;
     
     init(tileWidth:Int, tileHeight:Int, position:CGPoint, row:Int, column:Int) {
         sprite.anchorPoint = CGPoint(x: 0, y: 0);
@@ -25,22 +25,34 @@ class Tile {
         self.column = column;
     }
     
-    func onTap() {
-        if (beenTapped === false) {
-            // this tile is empty - give it the current game color
-            sprite.color = game.currentColor;
-            game.pickColor();
-            beenTapped = true;
-            game.informTileFilled(self);
-        }
-        else {
-            // this tile is filled, check to see if we can clear it
-            game.attemptTileClear(self);
-        }
+    func disable() {
+        self.sprite.alpha = 0.2;
+        self.beenTapped = true;
+        self.blackedOut = true;
     }
     
-    func setColor(newColor:UIColor) {
-        self.color = newColor;
+    func enable() {
+        self.sprite.alpha = 1;
+        self.sprite.color = UIColor.grayColor();
+        self.beenTapped = false;
+        self.blackedOut = false;
+    }
+    
+    func onTap() {
+        if (game.performingIntro == false && self.blackedOut == false) {
+            if (self.beenTapped == false) {
+                // this tile is empty - give it the current game color
+                sprite.texture = game.currentColor;
+                game.pickColor();
+                beenTapped = true;
+                game.informTileFilled(self);
+                game.informTurnPerformed(self);
+            }
+            else {
+                // this tile is filled, check to see if we can clear it
+                game.attemptTileClear(self);
+            }
+        }
     }
     
     func informSuggestedTile() {

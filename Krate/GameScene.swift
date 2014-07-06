@@ -10,6 +10,8 @@ import SpriteKit
 
 class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
+        game.gameScene = self;
+        
         self.backgroundColor = UIColor.blackColor();
         let tileRowCount = 6;
         let tileColCount = 6;

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DC532DDF19516A9F00326F54 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC532DDE19516A9F00326F54 /* Matrix.swift */; };
+		DC61652D196902D000A19901 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC61652C196902D000A19901 /* Events.swift */; };
 		DCC9C898194D6B2B0035C4D0 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC9C897194D6B2B0035C4D0 /* Tile.swift */; };
 		DCC9C89A194D6C5C0035C4D0 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC9C899194D6C5C0035C4D0 /* World.swift */; };
 		DCC9C89C194D7AA20035C4D0 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC9C89B194D7AA20035C4D0 /* HUD.swift */; };
@@ -19,6 +20,7 @@
 		DCDA33051940003E0063EEFA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCDA33031940003E0063EEFA /* Main.storyboard */; };
 		DCDA33071940003E0063EEFA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCDA33061940003E0063EEFA /* Images.xcassets */; };
 		DCDA33131940003E0063EEFA /* KrateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDA33121940003E0063EEFA /* KrateTests.swift */; };
+		DCE033D11968C934007EF5BD /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE033D01968C934007EF5BD /* GameOverScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		DC532DDE19516A9F00326F54 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
+		DC61652C196902D000A19901 /* Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
 		DCC9C897194D6B2B0035C4D0 /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		DCC9C899194D6C5C0035C4D0 /* World.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		DCC9C89B194D7AA20035C4D0 /* HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
@@ -48,6 +51,7 @@
 		DCDA330C1940003E0063EEFA /* KrateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KrateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCDA33111940003E0063EEFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DCDA33121940003E0063EEFA /* KrateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KrateTests.swift; sourceTree = "<group>"; };
+		DCE033D01968C934007EF5BD /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +113,8 @@
 				DCDA33061940003E0063EEFA /* Images.xcassets */,
 				DCDA32F91940003E0063EEFA /* Supporting Files */,
 				DC532DDE19516A9F00326F54 /* Matrix.swift */,
+				DCE033D01968C934007EF5BD /* GameOverScene.swift */,
+				DC61652C196902D000A19901 /* Events.swift */,
 			);
 			path = Krate;
 			sourceTree = "<group>";
@@ -242,9 +248,11 @@
 				DCDA33021940003E0063EEFA /* GameViewController.swift in Sources */,
 				DCDA32FC1940003E0063EEFA /* AppDelegate.swift in Sources */,
 				DCC9C89C194D7AA20035C4D0 /* HUD.swift in Sources */,
+				DC61652D196902D000A19901 /* Events.swift in Sources */,
 				DC532DDF19516A9F00326F54 /* Matrix.swift in Sources */,
 				DCC9C898194D6B2B0035C4D0 /* Tile.swift in Sources */,
 				DCC9C89A194D6C5C0035C4D0 /* World.swift in Sources */,
+				DCE033D11968C934007EF5BD /* GameOverScene.swift in Sources */,
 				DCC9C89E194D7EE80035C4D0 /* GameLogic.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

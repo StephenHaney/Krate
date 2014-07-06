@@ -15,12 +15,14 @@ class Hud {
         sprite.position = CGPoint(x: 0, y: 0);
         sprite.anchorPoint = CGPoint(x: 0, y: 0);
         sprite.color = UIColor.redColor();
+        sprite.zPosition = 50;
     }
     
     func onTap() {
+        game.informGameOver();
     }
     
-    func informOfNewColor(newColor: UIColor) {
-        sprite.color = newColor;
+    func informOfNewColor(newColor: SKTexture) {
+        sprite.texture = newColor;
     }
 }
