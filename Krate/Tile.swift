@@ -17,10 +17,10 @@ class Tile {
     var blackedOut = false;
     
     init(tileWidth:Int, tileHeight:Int, position:CGPoint, row:Int, column:Int) {
-        sprite.anchorPoint = CGPoint(x: 0, y: 0);
         sprite.size = CGSize(width: tileWidth, height: tileHeight);
         sprite.position = position;
         sprite.color = UIColor.grayColor();
+        sprite.zPosition = 10;
         self.row = row;
         self.column = column;
     }
@@ -47,6 +47,7 @@ class Tile {
                 beenTapped = true;
                 game.informTileFilled(self);
                 game.informTurnPerformed(self);
+                game.events.trigger("tile-placed");
             }
             else {
                 // this tile is filled, check to see if we can clear it
@@ -56,8 +57,6 @@ class Tile {
     }
     
     func informSuggestedTile() {
-        sprite.xScale = 0.9;
-        sprite.yScale = 0.9;
     }
 }
 

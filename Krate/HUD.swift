@@ -19,7 +19,6 @@ class Hud {
     }
     
     func onTap() {
-        game.informGameOver();
     }
     
     func informOfNewColor(newColor: SKTexture) {

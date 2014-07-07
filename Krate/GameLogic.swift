@@ -11,10 +11,17 @@ import Darwin
 
 class GameLogic {
     var gameScene:GameScene?;
+    var currentScene:SKScene?;
+    
+    let events = EventManager();
+    let sounds = SoundManager();
+    
     let hud = Hud();
     let world = World();
     let tileRowCount = 6;
     let tileColCount = 6;
+    
+    let highlight = TileHighlight();
     
     var tileWidth:Int = 0;
     var tileHeight:Int = 0;
@@ -69,10 +76,9 @@ class GameLogic {
         var colCounter = 0;
 
         for index in 1...tileCount {
-            let anchorPoint = CGPoint(x: 0, y: 0);
             let size = CGSize(width: tileWidth, height: tileHeight);
-            let positionX = (tileHeight * colPlacement) + (tileHeight * colCounter);
-            let positionY = (tileWidth * rowPlacement) + (tileWidth * rowCounter);
+            let positionX = (tileHeight * colPlacement) + (tileHeight * colCounter) + (tileWidth / 2);
+            let positionY = (tileWidth * rowPlacement) + (tileWidth * rowCounter) + (tileHeight / 2);
             let position = CGPoint(x: positionX, y: positionY);
 
             let tile = Tile(tileWidth: tileWidth, tileHeight: tileHeight, position: position, row: rowCounter, column: colCounter);
@@ -97,12 +103,13 @@ class GameLogic {
         checkAdjacentTiles(startingTile);
         
         if (self.colorMatchedTiles.count > 2) {
+            self.events.trigger("tiles-cleared");
             for tile in self.colorMatchedTiles {
                 tile.beenTapped = false;
                 tile.sprite.texture = SKTexture(imageNamed: "CubeWhite");
                 filledTileCount--;
             }
-            
+
             world.shakeCamera(0.1);
         }
         
@@ -163,8 +170,7 @@ class GameLogic {
     func informTileFilled(tile:Tile) {
         filledTileCount++;
         turnCount++;
-
-        println(filledTileCount);
+        
         if (filledTileCount == 36) {
             // game over!
             self.informGameOver();
@@ -186,6 +192,8 @@ class GameLogic {
         else {
             // check if this is fulfilling a suggested spot, or ignoring one
             if (self.suggestedTile) {
+                highlight.clearHighlight();
+                
                 if (self.suggestedTile === tile) {
                     succesfulSuggestedTile();
                 }
@@ -232,7 +240,7 @@ class GameLogic {
 
         if (possibleSuggestedTile.beenTapped == false) {
             suggestedTile = possibleSuggestedTile;
-            suggestedTile!.informSuggestedTile();
+            highlight.highlightTile(suggestedTile!);
         }
     }
     

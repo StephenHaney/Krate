@@ -31,6 +31,10 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // start sound manager's listeners
+        // this is kind of a weird place for this, due to Swift quirks
+        game.sounds.setupListeners();
+        
         if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
             // Configure the view.
             let skView = self.view as SKView

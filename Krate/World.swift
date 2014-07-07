@@ -20,7 +20,7 @@ class World {
     func pregameZoom() {
         let initialZoom = SKAction.scaleTo(0.1, duration: 0);
         canvas.runAction(initialZoom);
-        let zoomIn = SKAction.group([ SKAction.scaleTo(1, duration: 2.4), SKAction.rotateByAngle(Float(M_PI * 2.0), duration: 3) ]);
+        let zoomIn = SKAction.group([ SKAction.scaleTo(1, duration: 2.8), SKAction.rotateByAngle(Float(M_PI * 2.0), duration: 2.8) ]);
         zoomIn.timingMode = SKActionTimingMode.EaseOut;
         canvas.runAction(zoomIn, completion: {
             game.performingIntro = false;
