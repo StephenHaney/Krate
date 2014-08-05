@@ -37,8 +37,13 @@ class GameScene: SKScene {
         self.addChild(game.world.canvas);
         
         /* place the bottom hud */
-        game.hud.sprite.size = CGSize(width: screenWidth, height: hudHeight);
-        self.addChild(game.hud.sprite);
+        game.hud.initSizes(screenWidth, hudHeight: hudHeight);
+        self.addChild(game.hud.hudNode);
+        
+        /* size and place the score keeper */
+        game.score.sprite.size = CGSize(width: screenWidth, height: game.tileHeight / 2);
+        game.score.sprite.position = CGPoint(x: screenWidth / 2, y: 10);
+        self.addChild(game.score.sprite);
         
         game.buildTiles();
     }
@@ -53,10 +58,6 @@ class GameScene: SKScene {
             {
                 // if we touched a tile, fire its tap event
                 touchedTileArray[0].onTap();
-            }
-            else if touchedNode === game.hud.sprite {
-                // if we tapped the hud, fire its tap event
-                game.hud.onTap();
             }
         }
     }

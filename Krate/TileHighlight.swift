@@ -30,7 +30,7 @@ class TileHighlight {
         
     }
     
-    func highlightTile(tile:Tile) {
+    func highlightTile(tile:Tile, texture:SKTexture) {
         self.currentTile = tile;
         tile.sprite.zPosition = 20;
         
@@ -48,36 +48,36 @@ class TileHighlight {
         particleNodeTop.particlePosition = CGPoint(x: tilePosX, y: tilePosY - tile50PercentHeight);
         particleNodeTop.particlePositionRange = CGVectorMake(tile.sprite.size.width, tile10PercentHeight);
         particleNodeTop.targetNode = tile.sprite;
-        particleNodeTop.particleTexture = game.currentColor;
+        particleNodeTop.particleTexture = texture;
         particleNodeTop.particleColorSequence = nil;
-        particleNodeTop.particleColorBlendFactor = 0.5;
+        particleNodeTop.particleColorBlendFactor = 0.15;
         particleNodeTop.particleZPosition = 40;
         particleNodeTop.particleZPositionRange = 0;
         
         particleNodeBottom.particlePosition = CGPoint(x: tilePosX, y: tilePosY + tile50PercentHeight);
         particleNodeBottom.particlePositionRange = CGVectorMake(tile.sprite.size.width, tile10PercentHeight);
         particleNodeBottom.targetNode = tile.sprite;
-        particleNodeBottom.particleTexture = game.currentColor;
+        particleNodeBottom.particleTexture = texture;
         particleNodeBottom.particleColorSequence = nil;
-        particleNodeBottom.particleColorBlendFactor = 0.5;
+        particleNodeBottom.particleColorBlendFactor = 0.15;
         particleNodeBottom.particleZPosition = 40;
         particleNodeBottom.particleZPositionRange = 0;
         
         particleNodeRight.particlePosition = CGPoint(x: tilePosX - tile50PercentWidth, y: tilePosY);
         particleNodeRight.particlePositionRange = CGVectorMake(tile10PercentWidth, tile.sprite.size.height);
         particleNodeRight.targetNode = tile.sprite;
-        particleNodeRight.particleTexture = game.currentColor;
+        particleNodeRight.particleTexture = texture;
         particleNodeRight.particleColorSequence = nil;
-        particleNodeRight.particleColorBlendFactor = 0.5;
+        particleNodeRight.particleColorBlendFactor = 0.15;
         particleNodeRight.particleZPosition = 40;
         particleNodeRight.particleZPositionRange = 0;
         
         particleNodeLeft.particlePosition = CGPoint(x: tilePosX + tile50PercentWidth, y: tilePosY);
         particleNodeLeft.particlePositionRange = CGVectorMake(tile10PercentWidth, tile.sprite.size.height);
         particleNodeLeft.targetNode = tile.sprite;
-        particleNodeLeft.particleTexture = game.currentColor;
+        particleNodeLeft.particleTexture = texture;
         particleNodeLeft.particleColorSequence = nil;
-        particleNodeLeft.particleColorBlendFactor = 0.5;
+        particleNodeLeft.particleColorBlendFactor = 0.15;
         particleNodeLeft.particleZPosition = 40;
         particleNodeLeft.particleZPositionRange = 0;
         

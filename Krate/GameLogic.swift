@@ -18,20 +18,20 @@ class GameLogic {
     
     let hud = Hud();
     let world = World();
+    let score = ScoreKeeper();
     let tileRowCount = 6;
     let tileColCount = 6;
     
     let highlight = TileHighlight();
+    let warning = TileHighlight();
     
     var tileWidth:Int = 0;
     var tileHeight:Int = 0;
     
     var performingIntro = true;
-    var score = 0;
     
     var possibleColors:SKTexture[];
-    var currentColor = SKTexture(imageNamed: "CubeBlue");
-    
+    var upcomingColors:SKTexture[] = [];
     var tileMatrix:TileMatrix;
     
     var visibleRows:Int[];
@@ -39,6 +39,7 @@ class GameLogic {
     var filledTileCount = 0;
     var turnCount = 0;
     var suggestedTile:Tile?;
+    var nextDisabledTile:Tile?;
     
     // keeps track of succesful color matched tiles as the player tries to clear a group
     var colorMatchedTiles:Tile[] = [];
@@ -56,7 +57,7 @@ class GameLogic {
             SKTexture(imageNamed: "CubeRed"),
             SKTexture(imageNamed: "CubeYellow")
         ];
-        pickColor();
+        initColors();
         
         // every X seconds we want to black out another tile
         let blackoutSequence = SKAction.sequence([SKAction.waitForDuration(7), SKAction.runBlock({ self.pickDisabledTile(); })]);
@@ -108,9 +109,17 @@ class GameLogic {
                 tile.beenTapped = false;
                 tile.sprite.texture = SKTexture(imageNamed: "CubeWhite");
                 filledTileCount--;
+                
+                // if one of these tiles is marked to be disabled, clear that out!
+                if let nextDisabled = game.nextDisabledTile {
+                    if nextDisabled === tile {
+                        game.nextDisabledTile = nil;
+                        game.warning.clearHighlight();
+                    }
+                }
             }
 
-            world.shakeCamera(0.1);
+            world.shakeCamera(0.16);
         }
         
         // reset our matched list
@@ -153,10 +162,22 @@ class GameLogic {
         }
     }
     
-    func pickColor() {
+    // fill in the upcoming colors for the first time
+    func initColors() {
+        for i in 0...3 {
+            let colorIndex:Int = Int(arc4random_uniform(UInt32(possibleColors.count)));
+            upcomingColors.append(possibleColors[colorIndex]);
+        }
+    }
+    
+    // pick a new color to tack on to the list!
+    func pickNextColor() {
         let colorIndex:Int = Int(arc4random_uniform(UInt32(possibleColors.count)));
-        currentColor = possibleColors[colorIndex];
-        hud.informOfNewColor(currentColor);
+        
+        upcomingColors.removeAtIndex(0);
+        upcomingColors.append(possibleColors[colorIndex]);
+        
+        game.events.trigger("upcoming-colors-changed");
     }
     
     func informGameOver() {
@@ -169,7 +190,6 @@ class GameLogic {
     
     func informTileFilled(tile:Tile) {
         filledTileCount++;
-        turnCount++;
         
         if (filledTileCount == 36) {
             // game over!
@@ -178,20 +198,24 @@ class GameLogic {
         else
         {
             // shake the camera
-            world.shakeCamera(0.03);
+            world.shakeCamera(0.12);
         
             self.checkForZoomChange();
         }
     }
     
     func informTurnPerformed(tile:Tile) {
-        // starting with the second turn, every third turn we want to assign a 'suggested' spot
-        if ((turnCount + 2) % 3 == 0) {
+        // pick the next color!
+        game.pickNextColor();
+        turnCount++;
+        
+        // starting with the second turn, every fifth turn we want to assign a 'suggested' spot
+        if (turnCount + 2) % 5 == 0 {
             pickSuggestedTile();
         }
         else {
             // check if this is fulfilling a suggested spot, or ignoring one
-            if (self.suggestedTile) {
+            if self.suggestedTile {
                 highlight.clearHighlight();
                 
                 if (self.suggestedTile === tile) {
@@ -209,90 +233,97 @@ class GameLogic {
     }
     
     func checkForZoomChange() {
-        if (filledTileCount == 4 && world.zoomedOut == 0) {
+        if filledTileCount === 4 && world.zoomedOut == 0 {
             world.zoomOut(0.5);
             visibleRows = [1,2,3,4];
             visibleCols = [1,2,3,4];
         }
-        else if (filledTileCount == 16 && world.zoomedOut == 1) {
+        else if filledTileCount == 16 && world.zoomedOut == 1 {
             world.zoomOut(0.3333333334);
             visibleRows = [0,1,2,3,4,5];
             visibleCols = [0,1,2,3,4,5];
         }
+        
+        
     }
     
     func failedSuggestedTile() {
         // TODO: write penalty for missing a suggested tile
         self.suggestedTile!.disable();
-        
-        filledTileCount++;
-        self.checkForZoomChange();
     }
     
     func succesfulSuggestedTile() {
         // write bonus for succesfully placing a suggested tile
-        
-        println("good job!");
     }
     
     func pickSuggestedTile() {
         let possibleSuggestedTile = randomVisibleBlankTile();
 
-        if (possibleSuggestedTile.beenTapped == false) {
-            suggestedTile = possibleSuggestedTile;
-            highlight.highlightTile(suggestedTile!);
+        if let tile = possibleSuggestedTile {
+            suggestedTile = tile;
+            highlight.highlightTile(suggestedTile!, texture: game.upcomingColors[0]);
         }
     }
     
     func pickDisabledTile() {
-        let newDisabledTile = randomVisibleEnabledTile();
-        
-        if (newDisabledTile.beenTapped == false) {
-            self.informTileFilled(newDisabledTile);
+        // disable the tile! (if there's one marked for it)
+        if let disabledTile = self.nextDisabledTile {
+            disabledTile.disable();
+            warning.clearHighlight();
         }
         
-        newDisabledTile.disable();
+        // pick next disabled tile and display warning
+        self.nextDisabledTile = randomVisibleEnabledTile();
+        if let tile = self.nextDisabledTile {
+            warning.highlightTile(tile, texture: SKTexture(imageNamed: "CubeDarkGray"));
+        }
     }
     
     // returns a visible tile that is gray
-    func randomVisibleBlankTile() -> Tile {
-        var randomRowIndex = game.randomNum(visibleRows.count);
-        var randomVisibleRow:Int = visibleRows[randomRowIndex];
+    // note that this won't return a tile if it's already marked for disable or suggested
+    func randomVisibleBlankTile() -> Tile? {
+        let visibleBlankTiles = game.tileMatrix.grid.filter ({
+            $0.beenTapped == false &&
+            self.nextDisabledTile !== $0 &&
+            self.suggestedTile !== $0 &&
+            contains(self.visibleRows, $0.row) &&
+            contains(self.visibleCols, $0.column)
+        });
         
-        var randomColIndex = game.randomNum(visibleCols.count);
-        var randomVisibleCol:Int = visibleCols[randomColIndex];
+        if (visibleBlankTiles.count > 0) {
+            let randomIndex = game.randomInt(visibleBlankTiles.count);
         
-        let randomVisibleTile = game.tileMatrix[randomVisibleRow, randomVisibleCol];
-        
-        // keep trying until we get a blank tile recursively
-        if (randomVisibleTile.beenTapped == true) {
-            return randomVisibleBlankTile();
+            return visibleBlankTiles[randomIndex];
         }
-        else {
-            return randomVisibleTile;
-        }
+
+        return nil;
     }
     
     // returns a visible tile that hasn't been blacked out (but includes user colored tiles)
-    func randomVisibleEnabledTile() -> Tile {
-        var randomRowIndex = game.randomNum(visibleRows.count);
-        var randomVisibleRow:Int = visibleRows[randomRowIndex];
+    // note that this won't return a tile if it's already marked for disable or suggested
+    func randomVisibleEnabledTile() -> Tile? {
+        let visibleBlankTiles = game.tileMatrix.grid.filter {
+            $0.blackedOut == false &&
+            self.nextDisabledTile !== $0 &&
+            self.suggestedTile !== $0 &&
+            contains(self.visibleRows, $0.row) &&
+            contains(self.visibleCols, $0.column)
+        };
         
-        var randomColIndex = game.randomNum(visibleCols.count);
-        var randomVisibleCol:Int = visibleCols[randomColIndex];
-        
-        let randomVisibleTile = game.tileMatrix[randomVisibleRow, randomVisibleCol];
-        
-        // keep trying until we get a blank tile recursively
-        if (randomVisibleTile.blackedOut == true) {
-            return randomVisibleEnabledTile();
+        if visibleBlankTiles.count > 0 {
+            let randomIndex = game.randomInt(visibleBlankTiles.count);
+            
+            return visibleBlankTiles[randomIndex];
         }
-        else {
-            return randomVisibleTile;
-        }
+        
+        return nil;
     }
     
-    func randomNum(maxValue:Int) -> Int {
+    func randomInt(maxValue:Int) -> Int {
         return Int(arc4random_uniform(UInt32(maxValue)));
+    }
+    
+    func randomFloat(maxValue:Float) -> Float {
+        return Float(arc4random_uniform(UInt32(maxValue)));
     }
 }

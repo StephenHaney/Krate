@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC4749E5197E25AD00F70D86 /* ScoreKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4749E4197E25AD00F70D86 /* ScoreKeeper.swift */; };
 		DC52CC8A196A15D7004804A5 /* tilePlaced.caf in Resources */ = {isa = PBXBuildFile; fileRef = DC52CC89196A15D7004804A5 /* tilePlaced.caf */; };
 		DC52CC8E196A189B004804A5 /* tilesCleared.caf in Resources */ = {isa = PBXBuildFile; fileRef = DC52CC8D196A189B004804A5 /* tilesCleared.caf */; };
 		DC52CC92196A2F5E004804A5 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = DC52CC90196A2F5E004804A5 /* spark.png */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DC4749E4197E25AD00F70D86 /* ScoreKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreKeeper.swift; sourceTree = "<group>"; };
 		DC52CC89196A15D7004804A5 /* tilePlaced.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = tilePlaced.caf; path = ../tilePlaced.caf; sourceTree = "<group>"; };
 		DC52CC8D196A189B004804A5 /* tilesCleared.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tilesCleared.caf; sourceTree = "<group>"; };
 		DC52CC8F196A2F5E004804A5 /* TileHighlight.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TileHighlight.sks; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				DCC9C897194D6B2B0035C4D0 /* Tile.swift */,
 				DCD9EC88196A6874007A1A16 /* TileHighlight.swift */,
 				DCC9C899194D6C5C0035C4D0 /* World.swift */,
+				DC4749E4197E25AD00F70D86 /* ScoreKeeper.swift */,
 			);
 			name = "Game Classes";
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				DCDA33001940003E0063EEFA /* GameScene.swift in Sources */,
 				DCDA33021940003E0063EEFA /* GameViewController.swift in Sources */,
 				DCDA32FC1940003E0063EEFA /* AppDelegate.swift in Sources */,
+				DC4749E5197E25AD00F70D86 /* ScoreKeeper.swift in Sources */,
 				DCC9C89C194D7AA20035C4D0 /* HUD.swift in Sources */,
 				DCD9EC89196A6874007A1A16 /* TileHighlight.swift in Sources */,
 				DC61652D196902D000A19901 /* Events.swift in Sources */,

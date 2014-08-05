@@ -34,12 +34,14 @@ class GameViewController: UIViewController {
         // start sound manager's listeners
         // this is kind of a weird place for this, due to Swift quirks
         game.sounds.setupListeners();
+        game.score.setupListeners();
+        game.hud.setupListeners();
         
         if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
             // Configure the view.
             let skView = self.view as SKView
-            skView.showsFPS = true
-            skView.showsNodeCount = true
+            skView.showsFPS = false
+            skView.showsNodeCount = false
             
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = true

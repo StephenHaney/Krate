@@ -10,7 +10,6 @@ import SpriteKit
 
 class World {
     let canvas = SKSpriteNode();
-    var initialPosition:CGPoint?;
     var zoomedOut = 0;
     
     init() {
@@ -37,28 +36,26 @@ class World {
         canvas.runAction(actionGroup);
     }
     
-    func shakeCamera(duration:Float) {
-        if !initialPosition {
-            initialPosition = canvas.position;
-        }
+    func rotate(turns:Float) {
+        let radianRotation = Float(M_PI);
         
-        let startingX = initialPosition!.x;
-        let startingY = initialPosition!.y;
-        let amplitudeX:Int = 12;
-        let amplitudeY:Int = 3;
-        let numberOfShakes = duration / 0.03;
+        canvas.runAction(SKAction.rotateByAngle(radianRotation, duration: 100));
+    }
+    
+    func shakeCamera(duration:Float) {
+        let amplitudeX:Float = 10;
+        let amplitudeY:Float = 6;
+        let numberOfShakes = duration / 0.04;
         var actionsArray:SKAction[] = [];
         for index in 1...Int(numberOfShakes) {
             // build a new random shake and add it to the list
-            let newXPos = startingX + Float(game.randomNum(amplitudeX) - amplitudeX / 2);
-            let newYPos = startingY + Float(game.randomNum(amplitudeY) - amplitudeY / 2);
-            let shakeAction = SKAction.moveTo(CGPointMake(newXPos, newYPos), duration: 0.03);
+            let moveX = game.randomFloat(amplitudeX) - amplitudeX / 2;
+            let moveY = game.randomFloat(amplitudeY) - amplitudeY / 2;
+            let shakeAction = SKAction.moveByX(moveX, y: moveY, duration: 0.02);
             shakeAction.timingMode = SKActionTimingMode.EaseOut;
             actionsArray.append(shakeAction);
+            actionsArray.append(shakeAction.reversedAction());
         }
-        
-        // reset to original position
-        actionsArray.append(SKAction.moveTo(initialPosition!, duration: 0.03));
 
         let actionSeq = SKAction.sequence(actionsArray);
         canvas.runAction(actionSeq);
