@@ -12,25 +12,25 @@ class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         game.gameScene = self;
         game.currentScene = self;
-        
+
         self.backgroundColor = UIColor.blackColor();
-        let tileRowCount = 6;
-        let tileColCount = 6;
-                
+
         /* figure out dimensions */
         let screenWidth = Int(UIScreen.mainScreen().bounds.width);
         let screenHeight = Int(UIScreen.mainScreen().bounds.height);
         
-        game.tileWidth = screenWidth / 2;
+        game.tileWidth = screenWidth / game.tileRowCount;
         game.tileHeight = game.tileWidth;
         
-        let worldWidth = game.tileWidth * tileRowCount;
-        let worldHeight = game.tileHeight * tileColCount;
-        let hudHeight = screenHeight - (game.tileHeight * 2);
+        let worldWidth = game.tileWidth * game.tileRowCount;
+        let worldHeight = game.tileHeight * game.tileColCount;
+        let hudHeight = screenHeight - (game.tileHeight * game.tileRowCount);
         
         /* place and size our world */
         let worldSize = CGSize(width: worldWidth, height: worldHeight);
-        let worldPosition = CGPoint(x: screenWidth / 2, y: game.tileHeight * 2);
+        let worldPosX = Float(screenWidth / 2) - (worldSize.width / 2);
+        let worldPosY = Float(game.tileHeight * game.tileRowCount) - (worldSize.height / 2);
+        let worldPosition = CGPoint(x: worldPosX, y: worldPosY);
 
         game.world.canvas.size = worldSize;
         game.world.canvas.position = worldPosition;
@@ -41,7 +41,7 @@ class GameScene: SKScene {
         self.addChild(game.hud.hudNode);
         
         /* size and place the score keeper */
-        game.score.sprite.size = CGSize(width: screenWidth, height: game.tileHeight / 2);
+        game.score.sprite.size = CGSize(width: screenWidth, height: game.tileHeight / game.tileColCount);
         game.score.sprite.position = CGPoint(x: screenWidth / 2, y: 10);
         self.addChild(game.score.sprite);
         

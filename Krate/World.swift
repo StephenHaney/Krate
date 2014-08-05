@@ -15,19 +15,11 @@ class World {
     init() {
         canvas.anchorPoint = CGPoint(x: 0.5, y: 0.5);
     }
-
-    func pregameZoom() {
-        let initialZoom = SKAction.scaleTo(0.1, duration: 0);
-        canvas.runAction(initialZoom);
-        let zoomIn = SKAction.group([ SKAction.scaleTo(1, duration: 2.8), SKAction.rotateByAngle(Float(M_PI * 2.0), duration: 2.8) ]);
-        zoomIn.timingMode = SKActionTimingMode.EaseOut;
-        canvas.runAction(zoomIn, completion: {
-            game.performingIntro = false;
-            self.shakeCamera(0.5);
-        } );
+    
+    func intro() {
     }
     
-    func zoomOut(scale:Float) {
+    /*func zoomOut(scale:Float) {
         let scaleAction = SKAction.scaleTo(scale, duration: 0.5);
         let rotateAction = SKAction.rotateByAngle(Float(M_PI * 0.5), duration: 0.5);
         let actionGroup = SKAction.group([scaleAction, rotateAction]);
@@ -40,7 +32,7 @@ class World {
         let radianRotation = Float(M_PI);
         
         canvas.runAction(SKAction.rotateByAngle(radianRotation, duration: 100));
-    }
+    }*/
     
     func shakeCamera(duration:Float) {
         let amplitudeX:Float = 10;

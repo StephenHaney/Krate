@@ -39,6 +39,8 @@ class Tile {
         self.sprite.alpha = 1;
         self.beenTapped = false;
         self.blackedOut = false;
+        self.sprite.texture = SKTexture(imageNamed: "CubeWhite");
+        game.filledTileCount--;
     }
     
     func onTap() {

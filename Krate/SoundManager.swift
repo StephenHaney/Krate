@@ -17,10 +17,10 @@ class SoundManager {
     
     func setupListeners() {
         // when they place a tile
-        game.events.listenTo("tile-placed", self.onTilePlaced);
+        //game.events.listenTo("tile-placed", self.onTilePlaced);
         
         // when a tile group is cleared
-        game.events.listenTo("tiles-cleared", self.onTilesCleared);
+        //game.events.listenTo("tiles-cleared", self.onTilesCleared);
     }
     
     func onTilePlaced() {
