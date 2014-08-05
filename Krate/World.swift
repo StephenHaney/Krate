@@ -12,12 +12,9 @@ class World {
     let canvas = SKSpriteNode();
     var zoomedOut = 0;
     
-    init() {
-        canvas.anchorPoint = CGPoint(x: 0.5, y: 0.5);
-    }
+    init() { }
     
-    func intro() {
-    }
+    func intro() { }
     
     /*func zoomOut(scale:Float) {
         let scaleAction = SKAction.scaleTo(scale, duration: 0.5);
@@ -38,11 +35,11 @@ class World {
         let amplitudeX:Float = 10;
         let amplitudeY:Float = 6;
         let numberOfShakes = duration / 0.04;
-        var actionsArray:SKAction[] = [];
+        var actionsArray:[SKAction] = [];
         for index in 1...Int(numberOfShakes) {
             // build a new random shake and add it to the list
-            let moveX = game.randomFloat(amplitudeX) - amplitudeX / 2;
-            let moveY = game.randomFloat(amplitudeY) - amplitudeY / 2;
+            let moveX = CGFloat(game.randomFloat(amplitudeX) - amplitudeX / 2);
+            let moveY = CGFloat(game.randomFloat(amplitudeY) - amplitudeY / 2);
             let shakeAction = SKAction.moveByX(moveX, y: moveY, duration: 0.02);
             shakeAction.timingMode = SKActionTimingMode.EaseOut;
             actionsArray.append(shakeAction);

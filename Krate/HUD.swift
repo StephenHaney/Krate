@@ -10,16 +10,16 @@ import SpriteKit
 
 class Hud {
     let hudNode = SKSpriteNode(color: UIColor.blackColor(), size: CGSizeZero);
-    let upcomingSprites:SKSpriteNode[] = [
+    let upcomingSprites:[SKSpriteNode] = [
          SKSpriteNode(),
          SKSpriteNode(),
          SKSpriteNode(),
          SKSpriteNode()
     ];
     
-    var scales:CGFloat[] = [];
-    var positions:CGPoint[] = [];
-    var alphas:CGFloat[] = [];
+    var scales:[CGFloat] = [];
+    var positions:[CGPoint] = [];
+    var alphas:[CGFloat] = [];
 
     var offsetIndex:Int = 0;
     
@@ -64,7 +64,7 @@ class Hud {
         
         // put the sprites into the initial arrangement:
         for i in 0...3 {
-            self.upcomingSprites[i].zPosition = Float(abs(i - 3));
+            self.upcomingSprites[i].zPosition = CGFloat(abs(i - 3));
             self.upcomingSprites[i].position = self.positions[i];
             self.upcomingSprites[i].alpha = self.alphas[i];
             self.upcomingSprites[i].size = CGSize(width: halfScreenWidth, height: hudHeight);
@@ -94,7 +94,7 @@ class Hud {
                 adjustedIndex = adjustedIndex - arrayCount;
             }
             
-            let newZ:Float = self.upcomingSprites[adjustedIndex].zPosition + 1;
+            let newZ:CGFloat = self.upcomingSprites[adjustedIndex].zPosition + 1;
             self.upcomingSprites[adjustedIndex].zPosition = newZ;
             
             let nextSpot = i - 1;
@@ -110,7 +110,7 @@ class Hud {
         
         // reset negative tile to fourth spot and animate it in
         self.upcomingSprites[offsetIndex].texture = game.upcomingColors[game.upcomingColors.count - 2];
-        self.upcomingSprites[offsetIndex].zPosition = Float(0);
+        self.upcomingSprites[offsetIndex].zPosition = CGFloat(0);
         self.upcomingSprites[offsetIndex].position = self.positions[arrayMax];
         self.upcomingSprites[offsetIndex].xScale = 0;
         self.upcomingSprites[offsetIndex].yScale = 0;

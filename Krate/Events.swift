@@ -50,7 +50,7 @@ class EventManager {
     // Triggers an event
     // + eventName: Matching listener eventNames will fire when this is called
     // + information: pass values to your listeners
-    func trigger(eventName:String, information:AnyObject[] = []) {
+    func trigger(eventName:String, information:[AnyObject] = []) {
         if let actions = self.listeners[eventName] {
             for actionToPerform in actions {
                 if actionToPerform is EventListenerAction {

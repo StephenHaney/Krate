@@ -24,14 +24,14 @@ class GameScene: SKScene {
         
         let worldWidth = game.tileWidth * game.tileRowCount;
         let worldHeight = game.tileHeight * game.tileColCount;
-        let hudHeight = screenHeight - (game.tileHeight * game.tileRowCount);
+        let hudHeight = screenHeight - worldHeight;
         
         /* place and size our world */
         let worldSize = CGSize(width: worldWidth, height: worldHeight);
-        let worldPosX = Float(screenWidth / 2) - (worldSize.width / 2);
-        let worldPosY = Float(game.tileHeight * game.tileRowCount) - (worldSize.height / 2);
+        let worldPosX = CGFloat(screenWidth) / 2;
+        let worldPosY = CGFloat(worldHeight) / 2 + CGFloat(hudHeight);
         let worldPosition = CGPoint(x: worldPosX, y: worldPosY);
-
+        
         game.world.canvas.size = worldSize;
         game.world.canvas.position = worldPosition;
         self.addChild(game.world.canvas);

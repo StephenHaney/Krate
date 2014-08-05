@@ -30,8 +30,8 @@ class GameLogic {
     
     var performingIntro = false;
     
-    var possibleColors:SKTexture[];
-    var upcomingColors:SKTexture[] = [];
+    var possibleColors:[SKTexture];
+    var upcomingColors:[SKTexture] = [];
     var tileMatrix:TileMatrix;
     
     var filledTileCount = 0;
@@ -40,7 +40,7 @@ class GameLogic {
     var nextDisabledTile:Tile?;
     
     // keeps track of succesful color matched tiles as the player tries to clear a group
-    var colorMatchedTiles:Tile[] = [];
+    var colorMatchedTiles:[Tile] = [];
     
     init() {
         tileMatrix = TileMatrix(rows: tileRowCount, columns: tileColCount);
@@ -67,11 +67,13 @@ class GameLogic {
         let tileCount = tileRowCount * tileColCount;
         var rowCounter = 0;
         var colCounter = 0;
+        let posOffsetX = Int(self.world.canvas.size.width / 2);
+        let posOffsetY = Int(self.world.canvas.size.height / 2);
 
         for index in 1...tileCount {
             let size = CGSize(width: tileWidth, height: tileHeight);
-            let positionX = (tileHeight * colCounter) + (tileWidth / 2);
-            let positionY = (tileWidth * rowCounter) + (tileHeight / 2);
+            let positionX = (tileHeight * colCounter) + (tileWidth / 2) - posOffsetX;
+            let positionY = (tileWidth * rowCounter) + (tileHeight / 2) - posOffsetY;
             let position = CGPoint(x: positionX, y: positionY);
 
             let tile = Tile(tileWidth: tileWidth, tileHeight: tileHeight, position: position, row: rowCounter, column: colCounter);
@@ -118,7 +120,7 @@ class GameLogic {
     }
     
     func checkAdjacentTiles(startingTile:Tile) {
-        var adjacentTiles:Tile[] = [];
+        var adjacentTiles:[Tile] = [];
         let belowRow = startingTile.row - 1;
         let aboveRow = startingTile.row + 1;
         let leftCol = startingTile.column - 1;
@@ -204,7 +206,7 @@ class GameLogic {
         }
         else {
             // check if this is fulfilling a suggested spot, or ignoring one
-            if self.suggestedTile {
+            if self.suggestedTile !== nil {
                 highlight.clearHighlight();
                 
                 if (self.suggestedTile === tile) {

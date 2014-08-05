@@ -87,7 +87,7 @@ class TileHighlight {
     func clearHighlight() {
         particleGroup.removeFromParent();
         
-        if (self.currentTile) {
+        if (self.currentTile !== nil) {
             self.currentTile!.sprite.zPosition = 10;
         }
     }

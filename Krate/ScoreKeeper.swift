@@ -41,8 +41,8 @@ class ScoreKeeper {
 
     func formattedTotalScore() -> String {
         let totalScoreStr = String(self.totalScore);
-        let leading0s = defaultScoreText.substringFromIndex(countElements(totalScoreStr));
-        
+        let leading0s = (defaultScoreText as NSString).substringFromIndex(countElements(totalScoreStr));
+
         return leading0s + totalScoreStr;
     }
 }

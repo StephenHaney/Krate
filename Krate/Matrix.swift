@@ -10,7 +10,7 @@ import Foundation
 
 struct TileMatrix {
     let rows: Int, columns: Int;
-    var grid = Tile[]();
+    var grid = [Tile]();
     
     init(rows: Int, columns: Int) {
         self.rows = rows;
