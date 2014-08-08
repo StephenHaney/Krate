@@ -15,6 +15,9 @@
 		DC5E2C471969F6BD00F45575 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5E2C461969F6BD00F45575 /* SoundManager.swift */; };
 		DC61652D196902D000A19901 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC61652C196902D000A19901 /* Events.swift */; };
 		DC77F771196A3326007B6D01 /* TileHighlight.sks in Resources */ = {isa = PBXBuildFile; fileRef = DC52CC8F196A2F5E004804A5 /* TileHighlight.sks */; };
+		DC8991331994A2B00087D9F0 /* blip.caf in Resources */ = {isa = PBXBuildFile; fileRef = DC8991301994A2B00087D9F0 /* blip.caf */; };
+		DC8991341994A2B00087D9F0 /* explosion.caf in Resources */ = {isa = PBXBuildFile; fileRef = DC8991311994A2B00087D9F0 /* explosion.caf */; };
+		DC8991351994A2B00087D9F0 /* powerup.caf in Resources */ = {isa = PBXBuildFile; fileRef = DC8991321994A2B00087D9F0 /* powerup.caf */; };
 		DCC9C898194D6B2B0035C4D0 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC9C897194D6B2B0035C4D0 /* Tile.swift */; };
 		DCC9C89A194D6C5C0035C4D0 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC9C899194D6C5C0035C4D0 /* World.swift */; };
 		DCC9C89C194D7AA20035C4D0 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC9C89B194D7AA20035C4D0 /* HUD.swift */; };
@@ -48,6 +51,9 @@
 		DC532DDE19516A9F00326F54 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
 		DC5E2C461969F6BD00F45575 /* SoundManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		DC61652C196902D000A19901 /* Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
+		DC8991301994A2B00087D9F0 /* blip.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = blip.caf; sourceTree = "<group>"; };
+		DC8991311994A2B00087D9F0 /* explosion.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = explosion.caf; sourceTree = "<group>"; };
+		DC8991321994A2B00087D9F0 /* powerup.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = powerup.caf; sourceTree = "<group>"; };
 		DCC9C897194D6B2B0035C4D0 /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		DCC9C899194D6C5C0035C4D0 /* World.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		DCC9C89B194D7AA20035C4D0 /* HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
@@ -87,6 +93,9 @@
 		DC52CC84196A0A12004804A5 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				DC8991301994A2B00087D9F0 /* blip.caf */,
+				DC8991311994A2B00087D9F0 /* explosion.caf */,
+				DC8991321994A2B00087D9F0 /* powerup.caf */,
 				DC52CC8D196A189B004804A5 /* tilesCleared.caf */,
 				DC52CC89196A15D7004804A5 /* tilePlaced.caf */,
 			);
@@ -253,9 +262,12 @@
 				DC77F771196A3326007B6D01 /* TileHighlight.sks in Resources */,
 				DC52CC8A196A15D7004804A5 /* tilePlaced.caf in Resources */,
 				DC52CC92196A2F5E004804A5 /* spark.png in Resources */,
+				DC8991331994A2B00087D9F0 /* blip.caf in Resources */,
 				DC52CC8E196A189B004804A5 /* tilesCleared.caf in Resources */,
 				DCDA33071940003E0063EEFA /* Images.xcassets in Resources */,
+				DC8991341994A2B00087D9F0 /* explosion.caf in Resources */,
 				DCDA33051940003E0063EEFA /* Main.storyboard in Resources */,
+				DC8991351994A2B00087D9F0 /* powerup.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

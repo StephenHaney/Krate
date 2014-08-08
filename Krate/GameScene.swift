@@ -52,6 +52,11 @@ class GameScene: SKScene {
         for touch: AnyObject in touches {
             let location = touch.locationInNode(self)
             let touchedNode = nodeAtPoint(location);
+            
+            if touchedNode === game.hud.powerBar {
+                game.powerUsed();
+            }
+            
             let touchedTileArray = game.tileMatrix.grid.filter { $0.sprite === touchedNode };
             
             if touchedTileArray.count > 0

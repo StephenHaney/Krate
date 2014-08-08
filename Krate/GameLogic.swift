@@ -25,6 +25,8 @@ class GameLogic {
     let highlight = TileHighlight();
     let warning = TileHighlight();
     
+    var power:CGFloat = 0.0;
+    
     var tileWidth:Int = 0;
     var tileHeight:Int = 0;
     
@@ -32,6 +34,7 @@ class GameLogic {
     
     var possibleColors:[SKTexture];
     var upcomingColors:[SKTexture] = [];
+    let universalTexture = SKTexture(imageNamed: "CubeRainbow");
     var tileMatrix:TileMatrix;
     
     var filledTileCount = 0;
@@ -97,7 +100,7 @@ class GameLogic {
         // start the recursive hunt for matching tiles
         checkAdjacentTiles(startingTile);
         
-        if (self.colorMatchedTiles.count > 2) {
+        if (self.colorMatchedTiles.count > 3) {
             self.events.trigger("tiles-cleared");
             for tile in self.colorMatchedTiles {
                 tile.beenTapped = false;
@@ -105,15 +108,13 @@ class GameLogic {
                 filledTileCount--;
             }
 
+            if let disabledTile = randomDisabledTile() {
+                 disabledTile.enable();
+            }
+            
             world.shakeCamera(Float(self.colorMatchedTiles.count) * 0.06);
         }
         
-        // if it's 4 or more, clear a black tile
-        if (self.colorMatchedTiles.count > 3) {
-            if let disabledTile = randomDisabledTile() {
-                disabledTile.enable();
-            }
-        }
         
         // reset our matched list
         self.colorMatchedTiles = [];
@@ -143,7 +144,7 @@ class GameLogic {
         }
         
         for tile in adjacentTiles {
-            if (tile.blackedOut == false && tile.sprite.texture.isEqual(startingTile.sprite.texture)) {
+            if (tile.blackedOut == false && (tile.sprite.texture.isEqual(startingTile.sprite.texture) || tile.sprite.texture.isEqual(self.universalTexture))) {
                 // they're the same color!  Make sure we haven't already matched this new tile:
                 var tileIsAlreadyMatched = self.colorMatchedTiles.filter { $0 === tile }.count;
                 // if it's not already in the collection, add it!
@@ -221,6 +222,8 @@ class GameLogic {
                 self.suggestedTile = nil;
             }
         }
+        
+        self.increasePower();
     }
     
     func failedSuggestedTile() {
@@ -252,6 +255,32 @@ class GameLogic {
         self.nextDisabledTile = randomEnabledTile();
         if let tile = self.nextDisabledTile {
             warning.highlightTile(tile, texture: SKTexture(imageNamed: "CubeDarkGray"));
+        }
+    }
+    
+    func increasePower() {
+        if self.power < 1 {
+            self.power = self.power + 0.05;
+            let newWidth = hud.hudNode.size.width * self.power;
+            self.hud.powerBar.runAction(SKAction.resizeToWidth(newWidth, duration: 0.2));
+        }
+        
+        if self.power >= 1 {
+            self.power = 1;
+            self.hud.powerBar.color = UIColor.whiteColor();
+        }
+    }
+    
+    func powerUsed() {
+        if self.power == 1 {
+            self.events.trigger("power-up");
+            println("BOOM");
+            self.power = 0;
+            self.hud.powerBar.runAction(SKAction.resizeToWidth(0, duration: 0.2));
+            self.hud.powerBar.color = UIColor.darkGrayColor();
+        }
+        else {
+            println("not powerful enough fool");
         }
     }
     

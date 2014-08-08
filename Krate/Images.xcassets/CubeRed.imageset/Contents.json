@@ -4,6 +4,10 @@
       "idiom" : "universal",
       "scale" : "1x",
       "filename" : "element_red_square_glossy.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
     }
   ],
   "info" : {

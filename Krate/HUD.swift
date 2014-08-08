@@ -16,6 +16,7 @@ class Hud {
          SKSpriteNode(),
          SKSpriteNode()
     ];
+    let powerBar = SKSpriteNode(color: UIColor.darkGrayColor(), size: CGSizeZero);
     
     var scales:[CGFloat] = [];
     var positions:[CGPoint] = [];
@@ -29,6 +30,8 @@ class Hud {
         for i in 0...3 {
             hudNode.addChild(self.upcomingSprites[i]);
         }
+        
+        hudNode.addChild(self.powerBar);
     }
     
     func setupListeners() {
@@ -67,7 +70,7 @@ class Hud {
             self.upcomingSprites[i].zPosition = CGFloat(abs(i - 3));
             self.upcomingSprites[i].position = self.positions[i];
             self.upcomingSprites[i].alpha = self.alphas[i];
-            self.upcomingSprites[i].size = CGSize(width: halfScreenWidth, height: hudHeight);
+            self.upcomingSprites[i].size = CGSize(width: halfScreenWidth, height: halfScreenWidth);
             self.upcomingSprites[i].xScale = self.scales[i];
             self.upcomingSprites[i].yScale = self.scales[i];
             
@@ -77,6 +80,15 @@ class Hud {
             }
             self.upcomingSprites[i].texture = game.upcomingColors[colorIndex];
         }
+        
+        // place the power bar
+        let powerBarHeight = hudHeight / 6;
+        let powerBarPosY = hudHeight / 2 - powerBarHeight;
+        
+        self.powerBar.anchorPoint = CGPoint(x: 0, y: 0);
+        self.powerBar.size = CGSize(width: 0, height: powerBarHeight);
+        self.powerBar.position = CGPoint(x: -halfScreenWidth, y: powerBarPosY);
+        self.powerBar.zPosition = 50;
         
     }
     

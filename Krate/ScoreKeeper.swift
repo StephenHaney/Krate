@@ -22,7 +22,7 @@ class ScoreKeeper {
         
         self.totalScoreLbl.text = defaultScoreText;
         self.totalScoreLbl.fontSize = 42;
-        self.totalScoreLbl.position = CGPoint(x: 0, y: 0);
+        self.totalScoreLbl.position = CGPoint(x: 0, y: -5);
         self.sprite.addChild(totalScoreLbl);
     }
     
