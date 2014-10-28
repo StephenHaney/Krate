@@ -18,6 +18,8 @@ class GameScene: SKScene {
         /* figure out dimensions */
         let screenWidth = Int(UIScreen.mainScreen().bounds.width);
         let screenHeight = Int(UIScreen.mainScreen().bounds.height);
+        let screenCenterX = CGFloat(screenWidth) / 2;
+        let screenCenterY = CGFloat(screenHeight) / 2;
         
         let worldWidth = screenWidth;
         let worldHeight = screenWidth;
@@ -25,8 +27,8 @@ class GameScene: SKScene {
         
         /* place and size our world */
         let worldSize = CGSize(width: worldWidth, height: worldHeight);
-        let worldPosX = CGFloat(screenWidth) / 2;
-        let worldPosY = CGFloat(worldHeight) / 2 + CGFloat(hudHeight);
+        let worldPosX = screenCenterX;
+        let worldPosY = screenCenterY + CGFloat(hudHeight) / 2;
         let worldPosition = CGPoint(x: worldPosX, y: worldPosY);
         
         game.world.canvas.size = worldSize;
@@ -36,6 +38,18 @@ class GameScene: SKScene {
         /* place the bottom hud */
         game.hud.initSizes(screenWidth, hudHeight: hudHeight);
         self.addChild(game.hud.hudNode);
+        
+        /* add the background */
+        let background = SKSpriteNode(imageNamed: "Parchment");
+        background.size = CGSize(width: screenWidth, height: screenHeight);
+        background.position = CGPoint(x: screenCenterX, y: screenCenterY);
+        self.addChild(background);
+        
+        let backgroundParticlePath = NSBundle.mainBundle().pathForResource("background", ofType: "sks")
+        let backgroundParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(backgroundParticlePath!) as SKEmitterNode;
+        
+        backgroundParticle.targetNode = background;
+        game.world.canvas.addChild(backgroundParticle);
         
         /* size and place the score keeper */
         game.score.sprite.size = CGSize(width: screenWidth, height: worldHeight / game.tileColCount);

@@ -31,8 +31,9 @@
 		DC618D4719CE98AA00A8F156 /* TileHighlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC618D3519CE98AA00A8F156 /* TileHighlight.swift */; };
 		DC618D4819CE98AA00A8F156 /* tilesCleared.caf in Resources */ = {isa = PBXBuildFile; fileRef = DC618D3619CE98AA00A8F156 /* tilesCleared.caf */; };
 		DC618D4A19CE99EE00A8F156 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC618D4919CE99EE00A8F156 /* World.swift */; };
-		DC618D4C19CE9A2400A8F156 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC618D4B19CE9A2400A8F156 /* Images.xcassets */; };
 		DC618D4E19CE9A4E00A8F156 /* tilePlaced.caf in Resources */ = {isa = PBXBuildFile; fileRef = DC618D4D19CE9A4E00A8F156 /* tilePlaced.caf */; };
+		DC6C45AD19FF4E66001B626B /* background.sks in Resources */ = {isa = PBXBuildFile; fileRef = DC6C45AC19FF4E66001B626B /* background.sks */; };
+		DC6C45AF19FF52E7001B626B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC6C45AE19FF52E7001B626B /* Images.xcassets */; };
 		DC7FAEAD19F5C51000E398EE /* clear.sks in Resources */ = {isa = PBXBuildFile; fileRef = DC7FAEAC19F5C51000E398EE /* clear.sks */; };
 		DCB6A8F419DE733C00BBAB2C /* magic.sks in Resources */ = {isa = PBXBuildFile; fileRef = DCB6A8F319DE733C00BBAB2C /* magic.sks */; };
 		DCB6A8F719DE7AA200BBAB2C /* bokeh.sks in Resources */ = {isa = PBXBuildFile; fileRef = DCB6A8F519DE7AA200BBAB2C /* bokeh.sks */; };
@@ -78,8 +79,9 @@
 		DC618D3519CE98AA00A8F156 /* TileHighlight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileHighlight.swift; sourceTree = "<group>"; };
 		DC618D3619CE98AA00A8F156 /* tilesCleared.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tilesCleared.caf; sourceTree = "<group>"; };
 		DC618D4919CE99EE00A8F156 /* World.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
-		DC618D4B19CE9A2400A8F156 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DC618D4D19CE9A4E00A8F156 /* tilePlaced.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tilePlaced.caf; sourceTree = "<group>"; };
+		DC6C45AC19FF4E66001B626B /* background.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = background.sks; sourceTree = "<group>"; };
+		DC6C45AE19FF52E7001B626B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DC7FAEAC19F5C51000E398EE /* clear.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = clear.sks; sourceTree = "<group>"; };
 		DCB6A8F319DE733C00BBAB2C /* magic.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = magic.sks; sourceTree = "<group>"; };
 		DCB6A8F519DE7AA200BBAB2C /* bokeh.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = bokeh.sks; sourceTree = "<group>"; };
@@ -125,22 +127,23 @@
 		DC618CFE19CE980F00A8F156 /* Krate */ = {
 			isa = PBXGroup;
 			children = (
+				DC7FAEA919F5B96E00E398EE /* Game Classes */,
 				DC7FAEAB19F5B9C200E398EE /* Helper Classes */,
 				DC7FAEAA19F5B99500E398EE /* Sound Files */,
-				DC7FAEA919F5B96E00E398EE /* Game Classes */,
-				DC618D4B19CE9A2400A8F156 /* Images.xcassets */,
-				DC618D3119CE98AA00A8F156 /* spark.png */,
-				DC618D3419CE98AA00A8F156 /* TileHighlight.sks */,
+				DC618CFF19CE980F00A8F156 /* Supporting Files */,
 				DC618D0119CE980F00A8F156 /* AppDelegate.swift */,
+				DC6C45AC19FF4E66001B626B /* background.sks */,
+				DCB6A8F619DE7AA200BBAB2C /* bokeh.png */,
+				DCB6A8F519DE7AA200BBAB2C /* bokeh.sks */,
+				DC7FAEAC19F5C51000E398EE /* clear.sks */,
 				DC618D0319CE980F00A8F156 /* GameScene.sks */,
 				DC618D0519CE980F00A8F156 /* GameScene.swift */,
 				DC618D0719CE980F00A8F156 /* GameViewController.swift */,
-				DC618D0919CE980F00A8F156 /* Main.storyboard */,
-				DC618CFF19CE980F00A8F156 /* Supporting Files */,
+				DC6C45AE19FF52E7001B626B /* Images.xcassets */,
 				DCB6A8F319DE733C00BBAB2C /* magic.sks */,
-				DCB6A8F519DE7AA200BBAB2C /* bokeh.sks */,
-				DCB6A8F619DE7AA200BBAB2C /* bokeh.png */,
-				DC7FAEAC19F5C51000E398EE /* clear.sks */,
+				DC618D0919CE980F00A8F156 /* Main.storyboard */,
+				DC618D3119CE98AA00A8F156 /* spark.png */,
+				DC618D3419CE98AA00A8F156 /* TileHighlight.sks */,
 			);
 			path = Krate;
 			sourceTree = "<group>";
@@ -290,8 +293,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC618D3919CE98AA00A8F156 /* explosion.caf in Resources */,
-				DC618D4C19CE9A2400A8F156 /* Images.xcassets in Resources */,
+				DC6C45AD19FF4E66001B626B /* background.sks in Resources */,
 				DC618D4319CE98AA00A8F156 /* spark.png in Resources */,
+				DC6C45AF19FF52E7001B626B /* Images.xcassets in Resources */,
 				DC618D4619CE98AA00A8F156 /* TileHighlight.sks in Resources */,
 				DC618D4819CE98AA00A8F156 /* tilesCleared.caf in Resources */,
 				DCB6A8F719DE7AA200BBAB2C /* bokeh.sks in Resources */,

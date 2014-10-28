@@ -9,7 +9,7 @@
 import SpriteKit
 
 class Hud {
-    let hudNode = SKSpriteNode(color: UIColor.blackColor(), size: CGSizeZero);
+    let hudNode = SKSpriteNode();
     let upcomingSprites:[SKSpriteNode] = [
          SKSpriteNode(),
          SKSpriteNode(),
@@ -24,8 +24,6 @@ class Hud {
     var alphas:[CGFloat] = [];
 
     var offsetIndex:Int = 0;
-
-    
     
     init() {
         hudNode.zPosition = 500;

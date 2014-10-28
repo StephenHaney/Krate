@@ -9,7 +9,7 @@
 import SpriteKit
 
 class World {
-    let canvas = SKSpriteNode(imageNamed: "game-board");
+    let canvas = SKSpriteNode();
     var zoomedOut = 0;
     
     init() {

@@ -10,7 +10,7 @@ import SpriteKit
 
 /* Tile class */
 class Tile {
-    let sprite = SKSpriteNode();
+    let sprite = SKSpriteNode(imageNamed: "TileBackground");
     var currentTexture = SKTexture(imageNamed: "CubeWhite");
     var beenTapped = false;
     var disabled = false;
@@ -57,6 +57,7 @@ class Tile {
     }
     
     func startMainParticles() {
+        self.particle.resetSimulation();
         game.world.canvas.addChild(self.particle);
     }
     
@@ -65,10 +66,10 @@ class Tile {
     }
     
     func disable() {
-        self.sprite.alpha = 0.4;
+        self.sprite.alpha = 0.1;
         self.disabled = true;
         self.markedForDisable = false;
-        self.particle.alpha = 0.4;
+        self.particle.alpha = 0.1;
         
         if !self.beenTapped {
             self.beenTapped = true;
