@@ -75,11 +75,19 @@ class GameLogic {
         let tileCount = tileRowCount * tileColCount;
         var rowCounter = 0;
         var colCounter = 0;
-        let posOffsetX = Int(self.world.canvas.size.width / 2);
-        let posOffsetY = Int(self.world.canvas.size.height / 2);
+        let borderSize = self.world.canvas.size.width * 0.03508;
+        let totalBorderSize = borderSize * 2;
+        let boardWidth = self.world.canvas.size.width - totalBorderSize; // accounting for borders
+        let boardHeight = self.world.canvas.size.height - totalBorderSize; // accounting for borders
+        self.tileWidth = Int(boardWidth) / self.tileColCount;
+        self.tileHeight = Int(boardHeight) / self.tileRowCount;
+        
+        let posOffsetX = Int(self.world.canvas.size.width / 2 - borderSize);
+        let posOffsetY = Int(self.world.canvas.size.height / 2 - borderSize);
 
         for index in 1...tileCount {
             let size = CGSize(width: tileWidth, height: tileHeight);
+            
             let positionX = (tileHeight * colCounter) + (tileWidth / 2) - posOffsetX;
             let positionY = (tileWidth * rowCounter) + (tileHeight / 2) - posOffsetY;
             let position = CGPoint(x: positionX, y: positionY);
@@ -98,7 +106,7 @@ class GameLogic {
         
         // black out 4 random tiles to start
         for index in 0...3 {
-            randomEnabledTile()?.disable();
+            //randomEnabledTile()?.disable();
         }
     }
     
@@ -114,7 +122,8 @@ class GameLogic {
             self.events.trigger("tiles-cleared");
             for tile in self.colorMatchedTiles {
                 tile.beenTapped = false;
-                tile.sprite.texture = SKTexture(imageNamed: "CubeWhite");
+                tile.currentTexture = SKTexture(imageNamed: "CubeWhite");
+                tile.pauseMainParticles();
                 filledTileCount--;
             }
 
@@ -161,7 +170,9 @@ class GameLogic {
     }
     
     func prismaticClear(centerTile:Tile) {
-        let adjacentTiles = getAdjacentTiles(centerTile);
+        var adjacentTiles = getAdjacentTiles(centerTile);
+        
+        adjacentTiles.append(centerTile);
         
         for tile in adjacentTiles {
             if (tile.disabled) {
@@ -178,11 +189,10 @@ class GameLogic {
                     darkness.nextDisabledTile = nil;
                 }
             }
+            
+            tile.clearAnimation();
         }
-        
-        // clear the center tile as well
-        centerTile.enable();
-        
+
         self.increaseExperience(10);
         
         world.shakeCamera(0.5);
@@ -191,7 +201,7 @@ class GameLogic {
     func checkAdjacentTiles(startingTile:Tile) {
         let adjacentTiles = getAdjacentTiles(startingTile);
         for tile in adjacentTiles {
-            if (tile.disabled == false && (tile.sprite.texture!.isEqual(startingTile.sprite.texture))) {
+            if (tile.disabled == false && (tile.currentTexture.isEqual(startingTile.currentTexture))) {
                 // they're the same color!  Make sure we haven't already matched this new tile:
                 var tileIsAlreadyMatched = self.colorMatchedTiles.filter { $0 === tile }.count;
                 // if it's not already in the collection, add it!
@@ -232,10 +242,7 @@ class GameLogic {
     func informTileFilled(tile:Tile) {
         filledTileCount++;
         
-        if (tile.sprite.texture!.isEqual(self.prismaticTexture)) {
-            prismaticClear(tile);
-        }
-        else if (filledTileCount == 25) {
+        if (filledTileCount == 25) {
             // game over!
             self.informGameOver();
         }

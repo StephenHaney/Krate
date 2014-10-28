@@ -19,11 +19,8 @@ class GameScene: SKScene {
         let screenWidth = Int(UIScreen.mainScreen().bounds.width);
         let screenHeight = Int(UIScreen.mainScreen().bounds.height);
         
-        game.tileWidth = screenWidth / game.tileRowCount;
-        game.tileHeight = game.tileWidth;
-        
-        let worldWidth = game.tileWidth * game.tileRowCount;
-        let worldHeight = game.tileHeight * game.tileColCount;
+        let worldWidth = screenWidth;
+        let worldHeight = screenWidth;
         let hudHeight = screenHeight - worldHeight;
         
         /* place and size our world */
@@ -41,7 +38,7 @@ class GameScene: SKScene {
         self.addChild(game.hud.hudNode);
         
         /* size and place the score keeper */
-        game.score.sprite.size = CGSize(width: screenWidth, height: game.tileHeight / game.tileColCount);
+        game.score.sprite.size = CGSize(width: screenWidth, height: worldHeight / game.tileColCount);
         game.score.sprite.position = CGPoint(x: screenWidth / 2, y: 10);
         self.addChild(game.score.sprite);
         

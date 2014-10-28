@@ -79,7 +79,7 @@ class TileHighlight {
         particleNodeLeft.particleColorBlendFactor = 0.15;
         particleNodeLeft.particleZPosition = 40;
         particleNodeLeft.particleZPositionRange = 0;
-        
+
         game.world.canvas.addChild(particleGroup);
     }
     

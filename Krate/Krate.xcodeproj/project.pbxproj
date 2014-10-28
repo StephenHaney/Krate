@@ -12,7 +12,6 @@
 		DC618D0619CE980F00A8F156 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC618D0519CE980F00A8F156 /* GameScene.swift */; };
 		DC618D0819CE980F00A8F156 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC618D0719CE980F00A8F156 /* GameViewController.swift */; };
 		DC618D0B19CE980F00A8F156 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC618D0919CE980F00A8F156 /* Main.storyboard */; };
-		DC618D1019CE980F00A8F156 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC618D0E19CE980F00A8F156 /* LaunchScreen.xib */; };
 		DC618D1C19CE980F00A8F156 /* KrateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC618D1B19CE980F00A8F156 /* KrateTests.swift */; };
 		DC618D3719CE98AA00A8F156 /* blip.caf in Resources */ = {isa = PBXBuildFile; fileRef = DC618D2519CE98AA00A8F156 /* blip.caf */; };
 		DC618D3819CE98AA00A8F156 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC618D2619CE98AA00A8F156 /* Events.swift */; };
@@ -34,6 +33,10 @@
 		DC618D4A19CE99EE00A8F156 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC618D4919CE99EE00A8F156 /* World.swift */; };
 		DC618D4C19CE9A2400A8F156 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC618D4B19CE9A2400A8F156 /* Images.xcassets */; };
 		DC618D4E19CE9A4E00A8F156 /* tilePlaced.caf in Resources */ = {isa = PBXBuildFile; fileRef = DC618D4D19CE9A4E00A8F156 /* tilePlaced.caf */; };
+		DC7FAEAD19F5C51000E398EE /* clear.sks in Resources */ = {isa = PBXBuildFile; fileRef = DC7FAEAC19F5C51000E398EE /* clear.sks */; };
+		DCB6A8F419DE733C00BBAB2C /* magic.sks in Resources */ = {isa = PBXBuildFile; fileRef = DCB6A8F319DE733C00BBAB2C /* magic.sks */; };
+		DCB6A8F719DE7AA200BBAB2C /* bokeh.sks in Resources */ = {isa = PBXBuildFile; fileRef = DCB6A8F519DE7AA200BBAB2C /* bokeh.sks */; };
+		DCB6A8F819DE7AA200BBAB2C /* bokeh.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB6A8F619DE7AA200BBAB2C /* bokeh.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +57,6 @@
 		DC618D0519CE980F00A8F156 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		DC618D0719CE980F00A8F156 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		DC618D0A19CE980F00A8F156 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		DC618D0F19CE980F00A8F156 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		DC618D1519CE980F00A8F156 /* KrateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KrateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC618D1A19CE980F00A8F156 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC618D1B19CE980F00A8F156 /* KrateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KrateTests.swift; sourceTree = "<group>"; };
@@ -78,6 +80,10 @@
 		DC618D4919CE99EE00A8F156 /* World.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		DC618D4B19CE9A2400A8F156 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DC618D4D19CE9A4E00A8F156 /* tilePlaced.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tilePlaced.caf; sourceTree = "<group>"; };
+		DC7FAEAC19F5C51000E398EE /* clear.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = clear.sks; sourceTree = "<group>"; };
+		DCB6A8F319DE733C00BBAB2C /* magic.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = magic.sks; sourceTree = "<group>"; };
+		DCB6A8F519DE7AA200BBAB2C /* bokeh.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = bokeh.sks; sourceTree = "<group>"; };
+		DCB6A8F619DE7AA200BBAB2C /* bokeh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bokeh.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,33 +125,22 @@
 		DC618CFE19CE980F00A8F156 /* Krate */ = {
 			isa = PBXGroup;
 			children = (
-				DC618D4D19CE9A4E00A8F156 /* tilePlaced.caf */,
+				DC7FAEAB19F5B9C200E398EE /* Helper Classes */,
+				DC7FAEAA19F5B99500E398EE /* Sound Files */,
+				DC7FAEA919F5B96E00E398EE /* Game Classes */,
 				DC618D4B19CE9A2400A8F156 /* Images.xcassets */,
-				DC618D4919CE99EE00A8F156 /* World.swift */,
-				DC618D2519CE98AA00A8F156 /* blip.caf */,
-				DC618D2619CE98AA00A8F156 /* Events.swift */,
-				DC618D2719CE98AA00A8F156 /* explosion.caf */,
-				DC618D2819CE98AA00A8F156 /* GameLogic.swift */,
-				DC618D2919CE98AA00A8F156 /* GameOverScene.swift */,
-				DC618D2A19CE98AA00A8F156 /* HUD.swift */,
-				DC618D2C19CE98AA00A8F156 /* LevelManager.swift */,
-				DC618D2D19CE98AA00A8F156 /* Matrix.swift */,
-				DC618D2E19CE98AA00A8F156 /* powerup.caf */,
-				DC618D2F19CE98AA00A8F156 /* ScoreKeeper.swift */,
-				DC618D3019CE98AA00A8F156 /* SoundManager.swift */,
 				DC618D3119CE98AA00A8F156 /* spark.png */,
-				DC618D3219CE98AA00A8F156 /* TheDarkness.swift */,
-				DC618D3319CE98AA00A8F156 /* Tile.swift */,
 				DC618D3419CE98AA00A8F156 /* TileHighlight.sks */,
-				DC618D3519CE98AA00A8F156 /* TileHighlight.swift */,
-				DC618D3619CE98AA00A8F156 /* tilesCleared.caf */,
 				DC618D0119CE980F00A8F156 /* AppDelegate.swift */,
 				DC618D0319CE980F00A8F156 /* GameScene.sks */,
 				DC618D0519CE980F00A8F156 /* GameScene.swift */,
 				DC618D0719CE980F00A8F156 /* GameViewController.swift */,
 				DC618D0919CE980F00A8F156 /* Main.storyboard */,
-				DC618D0E19CE980F00A8F156 /* LaunchScreen.xib */,
 				DC618CFF19CE980F00A8F156 /* Supporting Files */,
+				DCB6A8F319DE733C00BBAB2C /* magic.sks */,
+				DCB6A8F519DE7AA200BBAB2C /* bokeh.sks */,
+				DCB6A8F619DE7AA200BBAB2C /* bokeh.png */,
+				DC7FAEAC19F5C51000E398EE /* clear.sks */,
 			);
 			path = Krate;
 			sourceTree = "<group>";
@@ -173,6 +168,44 @@
 				DC618D1A19CE980F00A8F156 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DC7FAEA919F5B96E00E398EE /* Game Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DC618D2819CE98AA00A8F156 /* GameLogic.swift */,
+				DC618D2919CE98AA00A8F156 /* GameOverScene.swift */,
+				DC618D2A19CE98AA00A8F156 /* HUD.swift */,
+				DC618D2C19CE98AA00A8F156 /* LevelManager.swift */,
+				DC618D2F19CE98AA00A8F156 /* ScoreKeeper.swift */,
+				DC618D3019CE98AA00A8F156 /* SoundManager.swift */,
+				DC618D3219CE98AA00A8F156 /* TheDarkness.swift */,
+				DC618D3319CE98AA00A8F156 /* Tile.swift */,
+				DC618D3519CE98AA00A8F156 /* TileHighlight.swift */,
+				DC618D4919CE99EE00A8F156 /* World.swift */,
+			);
+			name = "Game Classes";
+			sourceTree = "<group>";
+		};
+		DC7FAEAA19F5B99500E398EE /* Sound Files */ = {
+			isa = PBXGroup;
+			children = (
+				DC618D2519CE98AA00A8F156 /* blip.caf */,
+				DC618D2719CE98AA00A8F156 /* explosion.caf */,
+				DC618D2E19CE98AA00A8F156 /* powerup.caf */,
+				DC618D4D19CE9A4E00A8F156 /* tilePlaced.caf */,
+				DC618D3619CE98AA00A8F156 /* tilesCleared.caf */,
+			);
+			name = "Sound Files";
+			sourceTree = "<group>";
+		};
+		DC7FAEAB19F5B9C200E398EE /* Helper Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DC618D2619CE98AA00A8F156 /* Events.swift */,
+				DC618D2D19CE98AA00A8F156 /* Matrix.swift */,
+			);
+			name = "Helper Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,6 +257,7 @@
 				TargetAttributes = {
 					DC618CFB19CE980F00A8F156 = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = PA579U484X;
 					};
 					DC618D1419CE980F00A8F156 = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -258,10 +292,13 @@
 				DC618D3919CE98AA00A8F156 /* explosion.caf in Resources */,
 				DC618D4C19CE9A2400A8F156 /* Images.xcassets in Resources */,
 				DC618D4319CE98AA00A8F156 /* spark.png in Resources */,
-				DC618D1019CE980F00A8F156 /* LaunchScreen.xib in Resources */,
 				DC618D4619CE98AA00A8F156 /* TileHighlight.sks in Resources */,
 				DC618D4819CE98AA00A8F156 /* tilesCleared.caf in Resources */,
+				DCB6A8F719DE7AA200BBAB2C /* bokeh.sks in Resources */,
 				DC618D0419CE980F00A8F156 /* GameScene.sks in Resources */,
+				DCB6A8F819DE7AA200BBAB2C /* bokeh.png in Resources */,
+				DCB6A8F419DE733C00BBAB2C /* magic.sks in Resources */,
+				DC7FAEAD19F5C51000E398EE /* clear.sks in Resources */,
 				DC618D4019CE98AA00A8F156 /* powerup.caf in Resources */,
 				DC618D3719CE98AA00A8F156 /* blip.caf in Resources */,
 				DC618D0B19CE980F00A8F156 /* Main.storyboard in Resources */,
@@ -326,14 +363,6 @@
 				DC618D0A19CE980F00A8F156 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		DC618D0E19CE980F00A8F156 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC618D0F19CE980F00A8F156 /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -422,9 +451,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Krate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -432,9 +464,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Krate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -491,6 +526,7 @@
 				DC618D2119CE980F00A8F156 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DC618D2219CE980F00A8F156 /* Build configuration list for PBXNativeTarget "KrateTests" */ = {
 			isa = XCConfigurationList;
@@ -499,6 +535,7 @@
 				DC618D2419CE980F00A8F156 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
