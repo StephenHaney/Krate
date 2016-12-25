@@ -17,6 +17,7 @@ class GameLogic {
     let levelManager = LevelManager();
     let events = EventManager();
     let sounds = SoundManager();
+    let highScores = HighScoreManager();
     
     let hud = Hud();
     let world = World();
@@ -37,6 +38,8 @@ class GameLogic {
     
     var possibleColors:[SKTexture];
     var upcomingColors:[SKTexture] = [];
+    var prismaticAwarded = false;
+    
     let prismaticTexture = SKTexture(imageNamed: "CubePrismatic");
     var tileMatrix:TileMatrix;
     
@@ -329,7 +332,8 @@ class GameLogic {
     }
     
     func awardPrismaticTile() {
-        self.upcomingColors[0] = self.prismaticTexture;
+        //self.upcomingColors[0] = self.prismaticTexture;
+        self.prismaticAwarded = true;
         self.hud.showPrismatic();
     }
     

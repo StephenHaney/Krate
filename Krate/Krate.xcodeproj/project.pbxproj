@@ -34,6 +34,7 @@
 		DC618D4E19CE9A4E00A8F156 /* tilePlaced.caf in Resources */ = {isa = PBXBuildFile; fileRef = DC618D4D19CE9A4E00A8F156 /* tilePlaced.caf */; };
 		DC6C45AD19FF4E66001B626B /* background.sks in Resources */ = {isa = PBXBuildFile; fileRef = DC6C45AC19FF4E66001B626B /* background.sks */; };
 		DC6C45AF19FF52E7001B626B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC6C45AE19FF52E7001B626B /* Images.xcassets */; };
+		DC773EF01A15D559008F2CFC /* HighScoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC773EEF1A15D559008F2CFC /* HighScoreManager.swift */; };
 		DC7FAEAD19F5C51000E398EE /* clear.sks in Resources */ = {isa = PBXBuildFile; fileRef = DC7FAEAC19F5C51000E398EE /* clear.sks */; };
 		DCB6A8F419DE733C00BBAB2C /* magic.sks in Resources */ = {isa = PBXBuildFile; fileRef = DCB6A8F319DE733C00BBAB2C /* magic.sks */; };
 		DCB6A8F719DE7AA200BBAB2C /* bokeh.sks in Resources */ = {isa = PBXBuildFile; fileRef = DCB6A8F519DE7AA200BBAB2C /* bokeh.sks */; };
@@ -82,6 +83,7 @@
 		DC618D4D19CE9A4E00A8F156 /* tilePlaced.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tilePlaced.caf; sourceTree = "<group>"; };
 		DC6C45AC19FF4E66001B626B /* background.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = background.sks; sourceTree = "<group>"; };
 		DC6C45AE19FF52E7001B626B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DC773EEF1A15D559008F2CFC /* HighScoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighScoreManager.swift; sourceTree = "<group>"; };
 		DC7FAEAC19F5C51000E398EE /* clear.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = clear.sks; sourceTree = "<group>"; };
 		DCB6A8F319DE733C00BBAB2C /* magic.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = magic.sks; sourceTree = "<group>"; };
 		DCB6A8F519DE7AA200BBAB2C /* bokeh.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = bokeh.sks; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			children = (
 				DC618D2819CE98AA00A8F156 /* GameLogic.swift */,
 				DC618D2919CE98AA00A8F156 /* GameOverScene.swift */,
+				DC773EEF1A15D559008F2CFC /* HighScoreManager.swift */,
 				DC618D2A19CE98AA00A8F156 /* HUD.swift */,
 				DC618D2C19CE98AA00A8F156 /* LevelManager.swift */,
 				DC618D2F19CE98AA00A8F156 /* ScoreKeeper.swift */,
@@ -334,6 +337,7 @@
 				DC618D0819CE980F00A8F156 /* GameViewController.swift in Sources */,
 				DC618D3A19CE98AA00A8F156 /* GameLogic.swift in Sources */,
 				DC618D4A19CE99EE00A8F156 /* World.swift in Sources */,
+				DC773EF01A15D559008F2CFC /* HighScoreManager.swift in Sources */,
 				DC618D4119CE98AA00A8F156 /* ScoreKeeper.swift in Sources */,
 				DC618D3C19CE98AA00A8F156 /* HUD.swift in Sources */,
 				DC618D3B19CE98AA00A8F156 /* GameOverScene.swift in Sources */,

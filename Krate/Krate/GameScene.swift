@@ -28,7 +28,7 @@ class GameScene: SKScene {
         /* place and size our world */
         let worldSize = CGSize(width: worldWidth, height: worldHeight);
         let worldPosX = screenCenterX;
-        let worldPosY = screenCenterY + CGFloat(hudHeight) / 2;
+        let worldPosY = screenCenterY - CGFloat(hudHeight) / 2;
         let worldPosition = CGPoint(x: worldPosX, y: worldPosY);
         
         game.world.canvas.size = worldSize;
@@ -49,11 +49,11 @@ class GameScene: SKScene {
         let backgroundParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(backgroundParticlePath!) as SKEmitterNode;
         
         backgroundParticle.targetNode = background;
-        game.world.canvas.addChild(backgroundParticle);
+        //game.world.canvas.addChild(backgroundParticle);
         
         /* size and place the score keeper */
         game.score.sprite.size = CGSize(width: screenWidth, height: worldHeight / game.tileColCount);
-        game.score.sprite.position = CGPoint(x: screenWidth / 2, y: 10);
+        game.score.sprite.position = CGPoint(x: screenWidth / 2, y: screenHeight - 10);
         self.addChild(game.score.sprite);
         
         game.startGame();

@@ -57,7 +57,7 @@ class Tile {
     }
     
     func startMainParticles() {
-        self.particle.resetSimulation();
+        //self.particle.resetSimulation();
         game.world.canvas.addChild(self.particle);
     }
     
@@ -66,10 +66,14 @@ class Tile {
     }
     
     func disable() {
-        self.sprite.alpha = 0.1;
+        let fadeAnimation = SKAction.fadeAlphaTo(0.1, duration: 0.3);
+        fadeAnimation.timingMode = SKActionTimingMode.EaseInEaseOut;
+        
         self.disabled = true;
         self.markedForDisable = false;
-        self.particle.alpha = 0.1;
+        
+        self.sprite.runAction(fadeAnimation);
+        self.particle.runAction(fadeAnimation);
         
         if !self.beenTapped {
             self.beenTapped = true;
@@ -78,21 +82,26 @@ class Tile {
     }
 
     func enable() {
-        self.sprite.alpha = 1;
+        let fadeAnimation = SKAction.fadeAlphaTo(1, duration: 0.3);
+        fadeAnimation.timingMode = SKActionTimingMode.EaseInEaseOut;
+        
         self.beenTapped = false;
         self.disabled = false;
         self.currentTexture = SKTexture(imageNamed: "CubeWhite");
         game.filledTileCount--;
         self.pauseMainParticles();
+        
+        self.sprite.runAction(fadeAnimation);
     }
     
     func onTap() {
         if (game.performingIntro == false && self.disabled == false) {
             if !self.beenTapped {
                 // this tile is empty - give it the current game color
-                if (game.upcomingColors[0] === game.prismaticTexture) {
+                if (game.prismaticAwarded == true) {
                     game.prismaticClear(self);
-                    game.pickNextColor();
+                    game.hud.doneWithPrismatic();
+                    game.prismaticAwarded = false;
                 }
                 else {
                     self.currentTexture = game.upcomingColors[0];

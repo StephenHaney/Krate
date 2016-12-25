@@ -1,3 +1,167 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// hello
+
+
+
+
+//   Stephen
+
+
+
+
+// scroll down . . .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// check out Jon Hopkins - Vessel as inspiration for the music for Krate.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //
 //  HUD.swift
 //  Krate
@@ -10,11 +174,11 @@ import SpriteKit
 
 class Hud {
     let hudNode = SKSpriteNode();
-    let upcomingSprites:[SKSpriteNode] = [
-         SKSpriteNode(),
-         SKSpriteNode(),
-         SKSpriteNode(),
-         SKSpriteNode()
+    let upcomingSprites:[SKEmitterNode] = [
+         SKEmitterNode(),
+         SKEmitterNode(),
+         SKEmitterNode(),
+         SKEmitterNode()
     ];
     let powerBar = SKSpriteNode(color: UIColor.darkGrayColor(), size: CGSizeZero);
     let levelUpText = SKLabelNode(fontNamed: "Avenir-Black");
@@ -28,7 +192,17 @@ class Hud {
     init() {
         hudNode.zPosition = 500;
         
+        var particle:SKEmitterNode = SKEmitterNode();
+        let particlePath = NSBundle.mainBundle().pathForResource("bokeh", ofType: "sks");
+        
         for i in 0...3 {
+            hudNode.addChild(self.upcomingSprites[i]);
+            
+            self.upcomingSprites[i] = NSKeyedUnarchiver.unarchiveObjectWithFile(particlePath!) as SKEmitterNode;
+            self.upcomingSprites[i].particleColorSequence = nil;
+            self.upcomingSprites[i].particleColorBlendFactor = 0.15;
+            self.upcomingSprites[i].particleZPosition = 40;
+            self.upcomingSprites[i].particleZPositionRange = 0;
             hudNode.addChild(self.upcomingSprites[i]);
         }
         
@@ -50,7 +224,7 @@ class Hud {
         let widthOriginBig = screenWidth / 4;
         let widthOriginSmall = screenWidth / 8;
         
-        self.hudNode.position = CGPoint(x: halfScreenWidth, y: hudHeight / 2);
+        self.hudNode.position = CGPoint(x: halfScreenWidth, y: screenWidth + hudHeight / 2);
         self.hudNode.size = CGSize(width: screenWidth, height: hudHeight);
         
         self.scales.append(CGFloat(1));
@@ -73,15 +247,18 @@ class Hud {
             self.upcomingSprites[i].zPosition = CGFloat(abs(i - 3));
             self.upcomingSprites[i].position = self.positions[i];
             self.upcomingSprites[i].alpha = self.alphas[i];
-            self.upcomingSprites[i].size = CGSize(width: halfScreenWidth, height: halfScreenWidth);
+            self.upcomingSprites[i].particlePositionRange = CGVector(dx: halfScreenWidth, dy: halfScreenWidth);
             self.upcomingSprites[i].xScale = self.scales[i];
             self.upcomingSprites[i].yScale = self.scales[i];
+            self.upcomingSprites[i].particleScale = 0.5;
+            self.upcomingSprites[i].particleBirthRate = 500;
+            self.upcomingSprites[i].particleLifetime = 2;
             
             var colorIndex = i - 1;
             if colorIndex < 0 {
                 colorIndex = game.upcomingColors.count - 1;
             }
-            self.upcomingSprites[i].texture = game.upcomingColors[colorIndex];
+            self.upcomingSprites[i].particleTexture = game.upcomingColors[colorIndex];
         }
         
         // place the power bar
@@ -116,6 +293,19 @@ class Hud {
         });
     }
 
+    func doneWithPrismatic() {
+        var currentSpriteIndex = 1 + self.offsetIndex;
+        let arrayCount = self.upcomingSprites.count;
+        let arrayMax = arrayCount - 1;
+        
+        if (currentSpriteIndex > arrayMax) {
+            currentSpriteIndex = currentSpriteIndex - arrayCount;
+        }
+        
+        self.upcomingSprites[currentSpriteIndex].particleTexture = game.upcomingColors[0];
+        self.upcomingSprites[currentSpriteIndex].resetSimulation();
+    }
+    
     func showPrismatic() {
         var currentSpriteIndex = 1 + self.offsetIndex;
         let arrayCount = self.upcomingSprites.count;
@@ -125,7 +315,8 @@ class Hud {
             currentSpriteIndex = currentSpriteIndex - arrayCount;
         }
         
-        self.upcomingSprites[currentSpriteIndex].texture = game.prismaticTexture;
+        self.upcomingSprites[currentSpriteIndex].particleTexture = game.prismaticTexture;
+        self.upcomingSprites[currentSpriteIndex].resetSimulation();
     }
     
     // triggered when the next colors update
@@ -157,12 +348,13 @@ class Hud {
         }
         
         // reset negative tile to fourth spot and animate it in
-        self.upcomingSprites[offsetIndex].texture = game.upcomingColors[game.upcomingColors.count - 2];
+        self.upcomingSprites[offsetIndex].particleTexture = game.upcomingColors[game.upcomingColors.count - 2];
         self.upcomingSprites[offsetIndex].zPosition = CGFloat(0);
         self.upcomingSprites[offsetIndex].position = self.positions[arrayMax];
         self.upcomingSprites[offsetIndex].xScale = 0;
         self.upcomingSprites[offsetIndex].yScale = 0;
         self.upcomingSprites[offsetIndex].alpha = 0;
+        self.upcomingSprites[offsetIndex].resetSimulation();
         
         let moveGroup = SKAction.group([
             SKAction.scaleTo(self.scales[arrayMax], duration: 0.125),

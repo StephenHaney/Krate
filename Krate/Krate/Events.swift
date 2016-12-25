@@ -17,7 +17,7 @@ class EventManager {
     // eventName: Matching trigger eventNames will cause this listener to fire
     // action: The block of code you want executed when the event triggers
     func listenTo(eventName:String, action:(()->())) {
-        let newListenerAction = EventListenerAction(action);
+        let newListenerAction = EventListenerAction(callback: action);
         
         if let listenerArray = self.listeners[eventName] {
             // action array exists for this event, add new action to it
